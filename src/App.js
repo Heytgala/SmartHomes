@@ -20,7 +20,7 @@ function App() {
     };
     return (
         <div>
-            <div className="header">
+            <div className="loginheader">
                 <p>Smart Homes</p>
                 <img src={logo} className="logo"></img>
             </div>

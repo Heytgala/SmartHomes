@@ -52,19 +52,18 @@ flex-direction: column;
 }
 
 
-.header {
+.loginheader {
     display: flex;
     justify-content: center;
 }
 
-    .header p {
+    .loginheader p {
         margin: 0;
         text-align: center;
         font-size: 40px;
         color: turquoise;
     }
 
-    .header .logo {
+    .loginheader .logo {
         width: 50px;
-        margin-left: 10px;
     }
