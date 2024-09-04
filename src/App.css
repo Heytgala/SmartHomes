@@ -26,6 +26,8 @@ flex-direction: column;
 .login-container form label {
     margin-bottom: 5px;
     font-weight: bold;
+    color: turquoise;
+    font-size:20px;
 }
 
 .login-container form input {
@@ -49,18 +51,20 @@ flex-direction: column;
     background-color: #0056b3;
 }
 
+
 .header {
     display: flex;
-    justify-content:center;
+    justify-content: center;
 }
 
-.header p {
-    margin: 0;
-    text-align: center;
-    font-size: 40px;
-    color: yellow;
-}
-.header .logo {
-    width: 50px; 
-    margin-left: 10px; 
-}
+    .header p {
+        margin: 0;
+        text-align: center;
+        font-size: 40px;
+        color: turquoise;
+    }
+
+    .header .logo {
+        width: 50px;
+        margin-left: 10px;
+    }

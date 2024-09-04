@@ -16,7 +16,7 @@ function App() {
         console.log('Name:', name);
         console.log('Email:', email);
         console.log('Password:', password);
-        navigate('/home');
+        navigate('/home',{state:{name}});
     };
     return (
         <div>
