@@ -2,7 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Layout from './Layout';
 import Home from './Home';
+import SmartDoorbells from './SmartDoorbells';
+import SmartDoorlock from './SmartDoorlock';
+import SmartLighting from './Smartlighting';
+import SmartSpeaker from './SmartSpeaker';
+import SmartThermostats from './SmartThermostats';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -12,7 +18,24 @@ root.render(
     <Router>
         <Routes>
             <Route path="/" element={<App />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/main" element={<Layout />} >
+                <Route index element={<Home />} />                
+            </Route>
+            <Route path="/main/smartdoorbells" element={<Layout />} >
+                <Route index element={<SmartDoorbells />} />                
+            </Route>
+            <Route path="/main/smartdoorlock" element={<Layout />} >
+                <Route index element={<SmartDoorlock />} />                
+            </Route>
+            <Route path="/main/smartspeaker" element={<Layout />} >
+                <Route index element={<SmartSpeaker />} />                
+            </Route>
+            <Route path="/main/smartlighting" element={<Layout />} >
+                <Route index element={<SmartLighting />} />                
+            </Route>
+            <Route path="/main/smartthermostats" element={<Layout />} >
+                <Route index element={<SmartThermostats />} />                
+            </Route>
         </Routes>
     </Router>
 );

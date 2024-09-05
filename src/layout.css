@@ -1,0 +1,114 @@
+.header h2 {
+    text-align: right;
+    color: turquoise;
+}
+
+.menu-bar {
+    display: flex;
+    justify-content: space-between;
+    padding-left:5px;
+    padding-right:5px;
+    color: turquoise;
+    font-size:20px;
+    align-items:center;
+}
+
+.menu-left {
+    flex: 1;
+}
+
+.menu-list {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-list li {
+    cursor: pointer;
+}
+
+.menu-list li:hover {
+    font-weight: bold; 
+    color: yellow; 
+    border-radius: 5px; 
+}
+
+.menu-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+.cart-icon {
+    height: 30px;
+    font-size:24px;
+    cursor: pointer;
+}
+
+    .cart-icon:hover {
+        font-weight: bold;
+        color: yellow;
+        border-radius: 5px;
+    }
+
+
+.left-nav-bar {
+    width: 200px;
+    float: left;
+    margin-top: 20px;
+    padding: 10px;
+    color: turquoise;
+}
+
+.product-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .product-list li {
+        padding: 10px;
+        border:1px solid #ddd;
+        cursor: pointer; 
+    }
+
+.product-list .menulist{
+    color:yellow;
+}
+/*
+        .product-list li:hover {
+            background-color: #e0e0e0;
+        }
+*/
+
+.dropdown-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.product-list li:hover .dropdown-list {
+    display: block;
+}
+
+.dropdown-list li {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+    .dropdown-list li:hover {
+        background-color: #f0f0f0;
+    }
+
+.dropdown-icon {
+    float: right;
+}
+
+.rotated {
+    transform: rotate(180deg);
+}
