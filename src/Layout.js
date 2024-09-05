@@ -118,7 +118,7 @@ function Layout() {
                 </ul>                    
             </div>
             <div className="content">
-                <Outlet /> {/* Renders child components like Home */}
+                <Outlet /> 
             </div>
         </div>
     );
