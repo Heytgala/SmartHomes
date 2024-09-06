@@ -1,0 +1,84 @@
+{
+  "categories": [
+    {
+      "categoryName": "Smart Doorbells",
+      "products": [
+        {
+          "name": "Apple Doorbell",
+          "description": "High-end smartphone with 128GB storage.",
+          "price": 699.99,
+          "image": "./images/smart doorbells/apple doorbell.jpg"
+        },
+        {
+          "name": "Samsung Doorbell",
+          "description": "Fitness tracking smartwatch.",
+          "price": 249.99,
+          "image": "/images/smart doorbells/samsung doorbell.jpg"
+        }]
+    },
+    {
+      "categoryName": "Smart Doorlocks",
+      "products": [
+        {
+          "name": "Philips Doorlock",
+          "description": "Double-door fridge with freezer.",
+          "price": 799.99,
+          "image": "refrigerator.jpg"
+        },
+        {
+          "name": "Dell Doorlock",
+          "description": "900W microwave oven with grill function.",
+          "price": 129.99,
+          "image": "microwave.jpg"
+        }]
+    },
+    {
+      "categoryName": "Smart Speakers",
+      "products": [
+        {
+          "name": "Alexa Speaker",
+          "description": "Three-seater fabric sofa.",
+          "price": 499.99,
+          "image": "sofa.jpg"
+        },
+        {
+          "name": "JBL Speaker",
+          "description": "Wooden dining table with 4 chairs.",
+          "price": 399.99,
+          "image": "dining_table.jpg"
+        }]
+    },
+    {
+      "categoryName": "Smart Lightings",
+      "products": [
+        {
+          "name": "Philip Lighting",
+          "description": "Cotton t-shirt with graphic print.",
+          "price": 19.99,
+          "image": "tshirt.jpg"
+        },
+        {
+          "name": "Orange Lighting",
+          "description": "Slim-fit denim jeans.",
+          "price": 49.99,
+          "image": "jeans.jpg"
+        }]
+    },
+    {
+      "categoryName": "Smart Thermostats",
+      "products": [
+        {
+          "name": "Electric Thermostat",
+          "description": "Best-selling fiction novel.",
+          "price": 14.99,
+          "image": "fiction_novel.jpg"
+        },
+        {
+          "name": "Boat Thermostat",
+          "description": "Motivational self-help guide.",
+          "price": 19.99,
+          "image": "self_help_book.jpg"
+        }]
+    }
+  ]
+}
