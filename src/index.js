@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import Layout from './Layout';
+import Register from './Register';
 import Home from './Home';
+import ManagerDashboard from './managerdashboard';
 import SmartDoorbells from './SmartDoorbells';
 import SmartDoorlock from './SmartDoorlock';
 import SmartLighting from './Smartlighting';
@@ -18,6 +20,8 @@ root.render(
     <Router>
         <Routes>
             <Route path="/" element={<App />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/Dashboard" element={<ManagerDashboard /> }/>
             <Route path="/main" element={<Layout />} >
                 <Route index element={<Home />} />                
             </Route>
