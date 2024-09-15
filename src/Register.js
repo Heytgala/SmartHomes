@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import logo from './images/logo.png';
 import BASE_URL from './config';
 
 function RegisterPage() {
+    useEffect(() => {
+        localStorage.removeItem('userName'); 
+    }, []);
     const location = useLocation();
     const navigate = useNavigate();
     const role = location.state?.role;
@@ -41,6 +44,8 @@ function RegisterPage() {
 
         const data = await response.json();
         if (data.status === 'success') {
+            console.log(data);
+            localStorage.setItem('userName', data.userName);
             navigate('/main');
         } else {
             showError(data.message);

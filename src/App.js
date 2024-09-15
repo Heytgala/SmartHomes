@@ -22,6 +22,7 @@ function App() {
     };
 
     const handleSubmit = async (event) => {
+        localStorage.removeItem('userName');
         event.preventDefault();
         const response = await fetch(`${ BASE_URL }/login?email=${email}&password=${password}&role=${role}`, {
             method: 'GET',
@@ -33,7 +34,7 @@ function App() {
             if (data.role === 'Customer') {
                 navigate('/main');
             } else if (data.role === 'Salesman') {
-                navigate('/Register');
+                navigate('/SalesmanDashboard');
             } else if (data.role === 'StoreManager') {
                 navigate('/Dashboard');
             }

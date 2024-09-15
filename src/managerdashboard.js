@@ -8,17 +8,13 @@ import AddProductPopup from './AddProduct';
 
 function scrollContainer(direction) {
     const container = document.querySelector('.product-container');
-    const cardWidth = 300; 
-    const gap = 20; 
-    const visibleCards = 3; 
-
-    const scrollAmount = (cardWidth + gap) * visibleCards;
-
+    const containerWidth = container.offsetWidth; 
     container.scrollBy({
-        left: direction * scrollAmount,
+        left: direction * containerWidth,
         behavior: 'smooth'
     });
 }
+
 
 function Dashboard() {
     const [products, setProducts] = useState([]);

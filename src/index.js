@@ -6,6 +6,7 @@ import Layout from './Layout';
 import Register from './Register';
 import Home from './Home';
 import ManagerDashboard from './managerdashboard';
+import SalesmanDashboard from './SalesmanDashboard';
 import SmartDoorbells from './SmartDoorbells';
 import SmartDoorlock from './SmartDoorlock';
 import SmartLighting from './Smartlighting';
@@ -21,7 +22,8 @@ root.render(
         <Routes>
             <Route path="/" element={<App />} />
             <Route path="/Register" element={<Register />} />
-            <Route path="/Dashboard" element={<ManagerDashboard /> }/>
+            <Route path="/Dashboard" element={<ManagerDashboard />} />
+            <Route path="/SalesmanDashboard" element={<SalesmanDashboard />} />
             <Route path="/main" element={<Layout />} >
                 <Route index element={<Home />} />                
             </Route>

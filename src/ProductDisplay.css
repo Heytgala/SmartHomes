@@ -1,0 +1,76 @@
+.products-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows products to wrap to the next row */
+    gap: 20px; /* Adds space between cards */
+    justify-content: center; /* Center the products */
+    padding: 20px;
+    background-color: transparent; /* Optional: Sets a light background */
+}
+
+.prod-container {
+    background-color: white; /* Card background color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    width: 250px; /* Set a fixed width for the card */
+    padding: 20px; /* Padding inside the card */
+    text-align: center; /* Center-align the text */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+    .prod-container:hover {
+        transform: translateY(-10px); /* Lift the card on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    }
+
+.prod-image {
+    width: 100%; /* Make the image take full width of the card */
+    height: 150px; /* Set a fixed height for images */
+    object-fit: cover; /* Maintain aspect ratio and crop if necessary */
+    border-radius: 10px 10px 10px 10px; /* Rounded corners at the top */
+}
+
+.prod-name {
+    font-size: 18px;
+    color: #333;
+    margin: 15px 0 10px; /* Adds space around the title */
+}
+
+.prod-description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px; /* Space below the description */
+    height: 60px; /* Fixed height for description */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Adds ellipsis (...) for long text */
+}
+
+.prod-price {
+    font-size: 16px;
+    color: #28a745; /* Green color for the price */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.ProductButton, .ViewProduct {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.ProductButton {
+    background-color: green;
+}
+
+.ViewProduct{
+    background-color:blue;
+}
+
+.Button-Container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 5px;
+}

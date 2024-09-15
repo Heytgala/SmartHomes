@@ -1,18 +1,66 @@
 .product-list {
-    position: relative; 
+    position: relative;
     width: 100%;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .title-container {
     display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    margin-bottom: 20px; 
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
+.customer-container label {
+    color: white;
+    padding-left: 20px;
+    font-size: 20px;
+}
+
+.customerselect {
+    padding: 10px;
+    width: 200px; /* Adjust width as necessary */
+    height: 42px; /* Matches the Add New Customer button height */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+    margin-left: 10px;
+}
+
+    .customerselect option {
+        font-size: 16px;
+    }
+
+/* Styling the default option */
+        .customerselect option:first-child {
+            font-weight: bold;
+            color: #999;
+        } {
+    padding: 10px;
+    width: 200px; /* Adjust width as necessary */
+    height: 42px; /* Matches the Add New Customer button height */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+    margin-left: 10px;
+}
+
+    select option {
+        font-size: 16px;
+    }
+
+        /* Styling the default option */
+        select option:first-child {
+            font-weight: bold;
+            color: #999;
+        }
+
     .title-container h1 {
-        margin: 0; 
+        margin: 0;
         color: white;
         padding-left: 20px;
     }
@@ -28,28 +76,24 @@
     margin-right: 20px;
 }
 
+.productbutton1, .productbutton2 {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
 .productbutton1 {
-    padding: 10px 20px;
     background-color: green;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
 }
+
 .productbutton2 {
-    padding: 10px 20px;
     background-color: red;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
 }
 
-
-
-    .add-product-button:hover, productbutton:hover {
+    .add-product-button:hover, .productbutton1:hover, .productbutton2:hover {
         background-color: #0056b3;
     }
 
@@ -61,73 +105,85 @@
 
 .product-container {
     display: flex;
-    flex-wrap: nowrap;
     gap: 20px;
-    align-items: center;
+    align-items: stretch;
     overflow-x: auto;
     scroll-behavior: smooth;
-    width: fit-content;
-    padding: 0 50px;
+    width: 100%;
+    padding: 0 20px;
+    overflow-x:hidden;
+    white-space:nowrap;
+
 }
 
-
 .product-card {
-    padding:10px;
+    padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 8px;   
+    border-radius: 8px;
     background-color: rgba(0, 0, 0, 0.5);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    height: 400px;
+    width: 200px; 
+    height:400px; 
     text-align: center;
     flex-shrink: 0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-.product-card h3{
-    color:white;
-}
-
-.product-card p{
-    color:white;
+    flex:1 0 20%;
+    box-sizing: border-box;
 }
 
 .product-image {
     width: 100%;
-    height: 150px;
-    object-fit: cover;
+    height: 150px; 
+    object-fit: cover; 
     border-radius: 8px;
+    margin-bottom:5px;
+    margin-top:0px;
 }
 
-
-.scroll-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
+.product-card h3, .product-card p, .Header-product {
     color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-    font-size: 1.5rem;
+    word-wrap: break-word;
+    margin-top:0px;
+    margin-bottom:2px;
 }
 
-.scroll-arrow-left {
-    left: 10px;
+.product-card p {
+    font-size: 0.9rem; 
+    margin-bottom: 5px;
 }
 
-.scroll-arrow-right {
-    right: 10px;
+.product-card .price {
+    font-weight: bold;
 }
 
 .button-container {
     display: flex;
     gap: 10px;
-    justify-content:center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.scroll-arrow {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.scroll-arrow-left {
+    left: 10px;
+    color:aqua;
+}
+
+.scroll-arrow-right {
+    right: 10px;
+    color:aqua;
 }
 
 
@@ -177,13 +233,84 @@
         margin-top: 5px;
     }
 
-.Header-product{
-    color:white;
-    margin:0
+.user-name {
+    color: white;
+    font-size: 24px;
 }
 
-.user-name{
+.orderlisttitle {
     color:white;
-    font-size:24px;
+    justify-content:center;
+    padding-left:70px;
+    padding-top:10px;
 }
 
+/*TABLE */
+.orders-salesman-table table {
+    width: 90%;
+    align-content: center;
+    justify-content: center;
+    margin-left: 60px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.orders-salesman-table th, .orders-salesman-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    color:white;
+}
+
+.orders-salesman-table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.orders-salesman-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+    .orders-salesman-button:hover {
+        background-color: #0056b3;
+    }
+
+.orders-salesman-updatebutton {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right:10px;
+    cursor: pointer;
+}
+
+    .orders-salesman-updatebutton:hover {
+        background-color: forestgreen;
+    }
+
+
+.salesmanpagination {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.salesman-page-button {
+    border: none;
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 8px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    .salesman-page-button:hover, .salesman-page-button.active {
+        background-color: #007bff;
+        color: white;
+    }
