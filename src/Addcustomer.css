@@ -1,0 +1,24 @@
+.addcustomer-button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+    .addcustomer-button:hover {
+        background-color: forestgreen;
+    }
+
+.cancelcustomer-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+    .cancelcustomer-button:hover {
+        background-color: #0056b3;
+    }

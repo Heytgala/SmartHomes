@@ -1,4 +1,3 @@
-// UpdateOrderPopup.js
 import React, { useState } from 'react';
 import './UpdateOrderPopup.css';
 

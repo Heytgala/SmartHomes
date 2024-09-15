@@ -112,10 +112,6 @@
     transform: rotate(180deg);
 }
 
-
-
-
-
 .search-results-dropdown {
     position: absolute;
     background: white;
@@ -126,6 +122,8 @@
     z-index: 1000;
     list-style: none;
     margin-top: 0px;
+    top:9%;
+    right:1%;
 }
 
     .search-results-dropdown li {

@@ -13,6 +13,7 @@ function UpdateProductPopup({ product, onClose, onUpdate }) {
                 description: product.description,
                 price: product.price,
                 image: product.image,
+                specialDiscounts: product.specialDiscounts
             });
         }
     }, [product]);
@@ -71,8 +72,15 @@ function UpdateProductPopup({ product, onClose, onUpdate }) {
                         <input type="number" name="price" value={formData.price || ''} onChange={handleChange} required />
                     </label>
                     <label>
-                        Image URL:
-                        <input type="text" name="image" value={formData.image || ''} onChange={handleChange} />
+                        View Image:
+                        <div>
+                            {formData.image && <img src={`${BASE_URL}/${formData.image}`} alt="Product" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
+                        </div>
+                        <input type="hidden" name="image" value={formData.image || ''} />
+                    </label>
+                    <label>
+                        Special Discounts:
+                        <input type="number" name="specialDiscounts" value={formData.specialDiscounts || ''} onChange={handleChange} required />
                     </label>
                     <button type="submit">Update</button>
                     <button type="button" onClick={onClose}>Cancel</button>

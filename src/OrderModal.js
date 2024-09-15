@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './OrdersModal.css'; // Add styles as needed
+import './OrdersModal.css'; 
 import BASE_URL from './config';
 
 const OrdersModal = ({ show, onClose }) => {
@@ -43,7 +43,7 @@ const OrdersModal = ({ show, onClose }) => {
 
     const handleCancelOrder = async (orderNumber) => {
         const url = `${BASE_URL}/cancelOrder`;
-        console.log('POST URL:', url); // Log the URL for verification
+        console.log('POST URL:', url); 
         console.log('Request Payload:', JSON.stringify({ orderNumber, userName }));
 
         try {
@@ -60,7 +60,7 @@ const OrdersModal = ({ show, onClose }) => {
 
             if (response.ok) {
                 setOrders(orders.filter(order => order.confirmationNumber !== orderNumber));
-                setOrderDetails(null); // Clear order details after cancellation
+                setOrderDetails(null); 
             } else {
                 console.error('Error canceling order:', response.statusText);
             }
@@ -90,6 +90,8 @@ const OrdersModal = ({ show, onClose }) => {
                         <thead>
                             <tr>
                                 <th>Order Number</th>
+                                <th>Delivery Method</th>
+                                <th>Store Location</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -98,6 +100,8 @@ const OrdersModal = ({ show, onClose }) => {
                             {currentOrders.map(order => (
                                 <tr key={order.confirmationNumber}>
                                     <td>{order.confirmationNumber}</td>
+                                    <td>{order.deliveryOption}</td>
+                                    <td>{order.storeLocation}</td>
                                     <td>{order.orderstatus}</td>
                                     <td>
                                         <button

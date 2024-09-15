@@ -3,31 +3,28 @@ import './Dashboard.css';
 import logo from './images/logo.png';
 import BASE_URL from './config';
 import UpdateProductPopup from './UpdateProduct';
-import AddProductPopup from './AddProduct'; 
-
-
-function scrollContainer(direction) {
-    const container = document.querySelector('.product-container');
-    const containerWidth = container.offsetWidth; 
-    container.scrollBy({
-        left: direction * containerWidth,
-        behavior: 'smooth'
-    });
-}
-
+import AddProductPopup from './AddProduct';
 
 function Dashboard() {
     const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('All'); 
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showAddProductPopup, setShowAddProductPopup] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1); 
+    const productsPerPage = 4; 
     const userName = localStorage.getItem('userName');
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch(`${BASE_URL}/productlist`);
                 const text = await response.text();
                 const data = JSON.parse(text);
+                const categories = ['All', ...new Set(data.map(product => product.categoryName))];
+
                 setProducts(data);
+                setCategories(categories); 
             } catch (error) {
                 console.error('Error fetching product data:', error);
             }
@@ -80,13 +77,26 @@ function Dashboard() {
     const handleAddProductClick = () => {
         setShowAddProductPopup(true);
     };
+
     const handleClosePopup = () => {
         setShowAddProductPopup(false);
     };
 
+    const filteredProducts = selectedCategory === 'All'
+        ? products
+        : products.filter(product => product.categoryName === selectedCategory);
+
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     return (
         <div>
-            <div className="header">
+            <div className="manager-header">
                 <div className="header-left">
                     <img src={logo} className="logo" alt="Smart Homes Logo" />
                     <p>Smart Homes</p>
@@ -102,15 +112,29 @@ function Dashboard() {
                     <h1>Product List</h1>
                     <button className="add-product-button" onClick={handleAddProductClick}>Add New Product</button>
                 </div>
-                <button className="scroll-arrow scroll-arrow-left" onClick={() => scrollContainer(-1)}>
-                    &lt;
-                </button>
+
+                <div className="category-tabs">
+                    {categories.map((category, index) => (
+                        <button
+                            key={index}
+                            className={`category-tab ${selectedCategory === category ? 'active' : ''}`}
+                            onClick={() => {
+                                setSelectedCategory(category);
+                                setCurrentPage(1); 
+                            }}
+                        >
+                            {category}
+                        </button>
+                    ))}
+                </div>
+
                 {showAddProductPopup && (
                     <AddProductPopup onClose={handleClosePopup} />
                 )}
+
                 <div className="product-container">
-                    {products.length > 0 ? (
-                        products.map((product, index) => (
+                    {currentProducts.length > 0 ? (
+                        currentProducts.map((product, index) => (
                             <div key={index} className="product-card">
                                 <h2 className="Header-product">{product.categoryName}</h2>
                                 <img src={`${BASE_URL}/${product.image}`} alt={product.productName} className="product-image" />
@@ -121,17 +145,39 @@ function Dashboard() {
                                     <button className="productbutton1" onClick={() => setSelectedProduct(product)}>Update</button>
                                     <button className="productbutton2" onClick={() => handleDelete(product.productName)}>Delete</button>
                                 </div>
-                               
                             </div>
                         ))
                     ) : (
                         <p>Loading products...</p>
                     )}
                 </div>
-                <button className="scroll-arrow scroll-arrow-right" onClick={() => scrollContainer(1)}>
-                    &gt;
-                </button>
+                <div className="pagination">
+                    <button
+                        className="page-button"
+                        onClick={() => paginate(currentPage - 1)}
+                        disabled={currentPage === 1}
+                    >
+                        Previous
+                    </button>
+                    {[...Array(totalPages)].map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => paginate(index + 1)}
+                            className={`page-button ${currentPage === index + 1 ? 'active' : ''}`}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                    <button
+                        className="page-button"
+                        onClick={() => paginate(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                    >
+                        Next
+                    </button>
+                </div>
             </div>
+
             {selectedProduct && (
                 <UpdateProductPopup
                     product={selectedProduct}

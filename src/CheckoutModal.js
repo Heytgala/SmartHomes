@@ -11,7 +11,7 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
         state: '',
         zip: '',
         creditCard: '',
-        deliveryMethod: 'home',
+        deliveryMethod: 'Home',
         storeLocation: ''
     });
 
@@ -19,7 +19,6 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
     const [deliveryDate, setDeliveryDate] = useState('');
     const [orderstatus, setOrderStatus] = useState('');
 
-    // Reset form and checkout state when modal opens
     useEffect(() => {
         if (show) {
             setConfirmationNumber('');
@@ -32,7 +31,7 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
                 state: '',
                 zip: '',
                 creditCard: '',
-                deliveryMethod: 'home',
+                deliveryMethod: 'Home',
                 storeLocation: ''
             });
         }
@@ -45,14 +44,12 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Generate a random confirmation number
         const confirmationNum = 'CN' + Math.floor(100000 + Math.random() * 900000);
         setConfirmationNumber(confirmationNum);
 
         const orderStatus = 'Completed';
         setOrderStatus(orderStatus);
 
-        // Calculate the delivery/pickup date (2 weeks from today)
         const today = new Date();
         const deliveryOrPickupDate = new Date(today.setDate(today.getDate() + 14));
         setDeliveryDate(deliveryOrPickupDate.toDateString());
@@ -67,7 +64,6 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
 
         console.log("Order Data to be sent:", orderData);
 
-        // POST request to your backend endpoint
         fetch(`${BASE_URL}/checkout`, {
             method: 'POST',
             headers: {
@@ -79,11 +75,9 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
             .then(data => {
                 console.log('Success:', data);
 
-                // Clear the cart after successful checkout
                 setCartItems([]);
                 onSubmit(orderData);
 
-                // Reset form data as well
                 setFormData({
                     name: '',
                     address: '',
@@ -91,7 +85,7 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
                     state: '',
                     zip: '',
                     creditCard: '',
-                    deliveryMethod: 'home',
+                    deliveryMethod: 'Home',
                     storeLocation: ''
                 });
             })
@@ -131,20 +125,25 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
 
                         <label>Delivery Method:</label>
                         <select name="deliveryMethod" className="Checkoutselect" onChange={handleInputChange}>
-                            <option value="home">Home Delivery</option>
-                            <option value="store">In-Store Pickup</option>
+                            <option value="Home">Home Delivery</option>
+                            <option value="Store">In-Store Pickup</option>
                         </select>
 
-                        {formData.deliveryMethod === 'store' && (
+                        {formData.deliveryMethod === 'Store' && (
                             <div>
                                 <label>Select Store Location:</label>
                                 <select name="storeLocation" className="Checkoutselect" onChange={handleInputChange} required>
                                     <option value="">Select Store</option>
-                                    <option value="Store 1 - 12345">Store 1 - 12345</option>
-                                    <option value="Store 2 - 54321">Store 2 - 54321</option>
-                                    <option value="Store 3 - 11111">Store 3 - 11111</option>
-                                    <option value="Store 4 - 22222">Store 4 - 22222</option>
-                                    <option value="Store 5 - 33333">Store 5 - 33333</option>
+                                    <option value="60616 - Chicago">60616 - Chicago</option>
+                                    <option value="10005 - New York">10005 - New York</option>
+                                    <option value="90007 - Los Angeles">90007 - Los Angeles</option>
+                                    <option value="22434 - San Diego">22434 - San Diego</option>
+                                    <option value="94016 - San Francisco">94016 - San Francisco</option>
+                                    <option value="46204 - Indiana">46204 - Indiana</option>
+                                    <option value="27213 - North Carolina">27213 - North Carolina</option>
+                                    <option value="02018 - Boston">02018 - Boston</option>
+                                    <option value="88901 - Las Vegas">88901 - Las Vegas</option>
+                                    <option value="33109 - Miami">33109 - Miami</option>
                                 </select>
                             </div>
                         )}

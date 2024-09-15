@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import BASE_URL from './config';
+import './Addcustomer.css';
 
 
 function AddCustomerPopup({ onClose }) {
@@ -83,8 +84,8 @@ function AddCustomerPopup({ onClose }) {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <button onClick={handleAddCustomer}>Add Customer</button>
-                    <button onClick={onClose}>Cancel</button>
+                    <button className="addcustomer-button" onClick={handleAddCustomer}>Add Customer</button>
+                    <button className="cancelcustomer-button" onClick={onClose}>Cancel</button>
                 </form>
             </div>
         </div>

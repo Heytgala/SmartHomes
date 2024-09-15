@@ -36,7 +36,11 @@ function SalesmanDashboard() {
                     const data = await response.json();
                     setOrders(data);
                     setCurrentPage(1);  
-                } else {
+                }
+                else if (response.status === 404) {
+                    setOrders([]);
+                }
+                else {
                     console.error('Failed to fetch orders');
                 }
             } catch (error) {
@@ -124,7 +128,6 @@ function SalesmanDashboard() {
         fetchCustomers();
     }, []);
 
-    // Pagination logic
     const indexOfLastOrder = currentPage * ordersPerPage;
     const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
     const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
@@ -174,6 +177,8 @@ function SalesmanDashboard() {
                             <thead>
                                 <tr>
                                     <th>Order Number</th>
+                                    <th>Delivery Method</th>
+                                    <th>Store Location</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
@@ -182,6 +187,8 @@ function SalesmanDashboard() {
                                 {currentOrders.map((order) => (
                                     <tr key={order.confirmationNumber}>
                                         <td>{order.confirmationNumber}</td>
+                                        <td>{order.deliveryOption}</td>
+                                        <td>{order.storeLocation}</td>
                                         <td>{order.orderstatus}</td>
                                         <td>
                                             <button className="orders-salesman-updatebutton" onClick={() => handleUpdateOrder(order)}>Update Order</button>
@@ -196,7 +203,6 @@ function SalesmanDashboard() {
                                 ))}
                             </tbody>
                         </table>
-                        {/* Pagination Controls */}
                         <div className="salesmanpagination">
                             {[...Array(totalPages).keys()].map(number => (
                                 <button

@@ -106,16 +106,14 @@ function Layout() {
                 try {
                     const data = JSON.parse(text);
 
-                    // Handle case where cart is empty
                     if (Array.isArray(data) && data.length === 0) {
                         console.log('Cart is empty');
-                        setCartItems([]); // Empty cart
+                        setCartItems([]); 
                         setShowCartModal(true);
                     } else if (Array.isArray(data)) {
-                        // Populate cart with items if present
                         const updatedCartItems = data.map(item => ({
                             ...item,
-                            quantity: 1, // Assuming default quantity is 1
+                            quantity: 1, 
                             price: parseFloat(item.price)
                         }));
                         setCartItems(updatedCartItems);
@@ -127,55 +125,15 @@ function Layout() {
                     console.error('Error parsing JSON:', jsonError, 'Raw text:', text);
                 }
             } else {
-                // Handle empty or invalid response from the server
                 console.log('Cart is empty or response invalid');
-                setCartItems([]); // Set cart to empty
-                setShowCartModal(true); // Show the modal indicating the cart is empty
+                setCartItems([]); 
+                setShowCartModal(true); 
             }
         } catch (error) {
             console.error('Error fetching cart data:', error);
         }
     };
 
-
-    /*
-    const handleCartClick = async () => {
-        try {
-            const response = await fetch(`${BASE_URL}/buyProduct?userName=${userName}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            const text = await response.text();
-            console.log('Raw response text:', text);
-
-            let jsonData;
-            if (text.startsWith('{')) {
-                jsonData = `[${text}]`; 
-            } else {
-                jsonData = text; 
-            }
-
-            const data = JSON.parse(jsonData);
-
-            if (response.ok) {
-                const updatedCartItems = data.map(item => ({
-                    ...item,
-                    quantity: 1, 
-                    price: parseFloat(item.price)
-                }));
-                setCartItems(updatedCartItems);
-                setShowCartModal(true);
-            } else {
-                console.error('Error fetching cart data:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Error fetching cart data:', error);
-        }
-    };
-    */
 
     const closeCartModal = () => {
         setShowCartModal(false);
@@ -203,10 +161,44 @@ function Layout() {
         setShowOrdersModal(false);
     };
 
+    const aggregateCartItems = (items) => {
+        console.log(items);
+        const aggregated = items.reduce((acc, item) => {
+            const existingItem = acc.find(i => i.productName === item.productName);
+            if (existingItem) {
+                existingItem.quantity += 1; 
+                existingItem.price = parseFloat(existingItem.price);
+                if (isNaN(item.specialDiscount)) {
+                    item.specialDiscount = 0;
+                }
+                console.log(item.specialDiscount);
+                existingItem.specialDiscount = parseFloat(existingItem.specialDiscount + item.specialDiscount);
+                existingItem.total = (
+                    (existingItem.price * existingItem.quantity) - (existingItem.specialDiscount)
+                ).toFixed(2); 
+            } else {
+                acc.push({
+                    ...item,
+                    quantity: 1,
+                    price: parseFloat(item.price),
+                    specialDiscount: item.specialDiscount || 0,
+                    total: (
+                        (parseFloat(item.price) - (item.specialDiscount || 0)) * 1
+                    ).toFixed(2)
+                });
+            }
+            return acc;
+        }, []);
+        return aggregated;
+    };
 
     const calculateTotal = () => {
-        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+        return cartItems.reduce((total, item) => {
+            const discount = item.specialDiscount || 0;
+            return total + ((item.price - discount) * item.quantity);
+        }, 0).toFixed(2);
     };
+
 
 
     const handleRemoveItem = async (productName) => {
@@ -265,7 +257,7 @@ function Layout() {
                         placeholder="Search Products"
                         value={searchTerm}
                         onChange={handleSearch}
-                        onFocus={() => setShowSearchResults(true)}
+                        onFocus={() => setShowSearchResults(false)}
                         onBlur={() => setTimeout(() => setShowSearchResults(false), 200)}
                     />
                     {showSearchResults && (
@@ -363,7 +355,7 @@ function Layout() {
             </div>
             <CartModal show={showCartModal} onClose={closeCartModal}>
                 <h2>Your Cart</h2>
-                {cartItems.length > 0 || cartItems!==[] ? (
+                {cartItems.length > 0 ? (
                     <>
                         <table className="cart-table">
                             <thead>
@@ -371,19 +363,23 @@ function Layout() {
                                     <th>Product</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
+                                    <th>Discount</th>
                                     <th>Total</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {currentItems.map((item, index) => (
+                                {aggregateCartItems(cartItems).map((item, index) => (
                                     <tr key={index}>
                                         <td>{item.productName}</td>
                                         <td>${item.price.toFixed(2)}</td>
-                                        <td>{item.quantity}</td>
-                                        <td>${(item.price * item.quantity).toFixed(2)}</td>
+                                        <td>{item.quantity}</td>                                        
+                                        <td>{item.specialDiscount > 0 ? `$${item.specialDiscount.toFixed(2)}` : ''}</td>
+                                        <td>${item.total}</td>
                                         <td>
-                                            <button className="RemoveButton" onClick={() => handleRemoveItem(item.productName,index)}>Remove</button>
+                                            <button className="RemoveButton" onClick={() => handleRemoveItem(item.productName)}>
+                                                Remove
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
@@ -407,6 +403,8 @@ function Layout() {
                     <p>Your cart is empty.</p>
                 )}
             </CartModal>
+            
+            
             <CheckoutModal show={showCheckoutModal} onClose={closeCheckoutModal} onSubmit={handleCheckoutSubmit} setCartItems={setCartItems} />
             <OrdersModal show={showOrdersModal} onClose={closeOrdersModal} />
         </div>
