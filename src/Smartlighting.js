@@ -48,9 +48,12 @@ function SmartDoorbells() {
             body: JSON.stringify({
                 productName: product.productName,
                 price: product.price,
+                productID: product.productID,
+                categoryName: product.categoryName,
+                imagePath: product.imagePath,
                 description: product.description,
                 userName: userName,
-                ...(isDiscountSelected && product.specialDiscounts ? { specialDiscount: product.specialDiscounts } : {})
+                ...(isDiscountSelected && product.discounts ? { discounts: product.discounts } : {})
             }),
         })
             .then(response => {
@@ -81,11 +84,11 @@ function SmartDoorbells() {
                 {Array.isArray(currentProducts) && currentProducts.length > 0 ? (
                     currentProducts.map(product => (
                         <div key={product.name} className="prod-container">
-                            <img src={`${BASE_URL}/${product.image}`} alt={product.name} className="prod-image" />
+                            <img src={`${BASE_URL}/${product.imagePath}`} alt={product.name} className="prod-image" />
                             <h2 className="prod-name">{product.productName}</h2>
                             <p className="prod-description">{product.description}</p>
                             <p className="prod-price">${parseFloat(product.price).toFixed(2)}</p>
-                            {product.specialDiscounts && (
+                            {product.discounts && (
                                 <div className="discount-checkbox">
                                     <label>
                                         <input
@@ -93,7 +96,7 @@ function SmartDoorbells() {
                                             checked={!!selectedDiscounts[product.productName]}
                                             onChange={() => handleCheckboxChange(product.productName)}
                                         />
-                                        Select Retailer Special Discount: ${product.specialDiscounts}
+                                        Select Retailer Special Discount: ${product.discounts}
                                     </label>
                                 </div>
                             )}

@@ -39,13 +39,29 @@
         background-color: #45a049;
     }
 
+.review-orders {
+    background-color: steelblue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+    .review-orders:hover {
+        background-color: darkblue;
+    }
+
+
 
 .search-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    gap:10px;
+    gap: 10px;
 }
 
 .search-container form {

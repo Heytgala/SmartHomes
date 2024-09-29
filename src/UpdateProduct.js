@@ -8,12 +8,13 @@ function UpdateProductPopup({ product, onClose, onUpdate }) {
     useEffect(() => {
         if (product) {
             setFormData({
-                prevproductname: product.productName,
+                productID: product.productID,
                 productName: product.productName,
                 description: product.description,
                 price: product.price,
-                image: product.image,
-                specialDiscounts: product.specialDiscounts
+                image: product.imagePath,
+                specialDiscounts: product.discounts,
+                ManufacturerName: product.ManufacturerName
             });
         }
     }, [product]);
@@ -58,26 +59,39 @@ function UpdateProductPopup({ product, onClose, onUpdate }) {
             <div className="popup-content">
                 <h2>Update Product</h2>
                 <form onSubmit={handleSubmit}>
-                    <input type="hidden" name="prevproductname" value={formData.productName || '' }></input>
+                    <input type="hidden" name="productID" value={formData.productID || ''}></input>
                     <label>
                         Product Name:
                         <input type="text" name="productName" value={formData.productName || ''} onChange={handleChange} required />
                     </label>
                     <label>
+                        Manufacturer Name:
+                        <input
+                            type="text"
+                            name="ManufacturerName"
+                            value={formData.ManufacturerName || ''}
+                            onChange={handleChange}
+                            required
+                        />
+                    </label>
+                    <label>
                         Description:
                         <textarea name="description" value={formData.description || ''} onChange={handleChange} required></textarea>
                     </label>
-                    <label>
-                        Price:
-                        <input type="number" name="price" value={formData.price || ''} onChange={handleChange} required />
-                    </label>
-                    <label>
-                        View Image:
-                        <div>
-                            {formData.image && <img src={`${BASE_URL}/${formData.image}`} alt="Product" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
-                        </div>
-                        <input type="hidden" name="image" value={formData.image || ''} />
-                    </label>
+                    <div style={{ display: 'flex', gap: '60px' }}>
+                        <label>
+                            Price:
+                            <input type="number" name="price" value={formData.price || ''} onChange={handleChange} required />
+                        </label>
+                        <label>
+                            View Image:
+                            <div>
+                                {formData.image && <img src={`${BASE_URL}/${formData.image}`} alt="Product" style={{ maxWidth: '100px', maxHeight: '100px' }} />}
+                            </div>
+                            <input type="hidden" name="image" value={formData.image || ''} />
+                        </label>
+                    </div>
+                    
                     <label>
                         Special Discounts:
                         <input type="number" name="specialDiscounts" value={formData.specialDiscounts || ''} onChange={handleChange} required />

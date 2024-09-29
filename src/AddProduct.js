@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BASE_URL from './config';
 
-function AddProductPopup({ onClose }) {
+function AddProductPopup({ onClose, onAddProduct }) {
     const [productName, setProductName] = useState('');
+    const [ManufacturerName, setManufacturerName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [image, setImage] = useState(null); 
     const [categoryName, setCategory] = useState('');
     const [specialDiscounts, setSpecialDiscounts] = useState('');
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/CategoryServlet`);
+                const data = await response.json();
+                setCategories(data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     const handleAddProduct = async (event) => {
         event.preventDefault();
 
-        if (!productName || !description || !price || !image || !categoryName) {
+        if (!productName || !ManufacturerName || !description || !price || !image || !categoryName) {
             alert('Please fill out all required fields.');
             return;
         }
         const formData = new FormData();
         formData.append('productName', productName);
+        formData.append('ManufacturerName', ManufacturerName);
         formData.append('categoryName', categoryName);
         formData.append('description', description);
         formData.append('price', price);
@@ -36,6 +53,8 @@ function AddProductPopup({ onClose }) {
 
             const result = await response.json();
             if (result.status === 'success') {
+                alert('Product Added Successfully');
+                onAddProduct(result.productName);
                 onClose();
             } else {
                 console.error('Error adding product:', result.message);
@@ -59,11 +78,11 @@ function AddProductPopup({ onClose }) {
                             required
                         >
                             <option value="">Select a category</option>
-                            <option value="Smart Doorbells">Smart Doorbells</option>
-                            <option value="Smart Doorlocks">Smart Doorlocks</option>
-                            <option value="Smart Thermostats">Smart Thermostats</option>
-                            <option value="Smart Lighting">Smart Lighting</option>
-                            <option value="Smart Speaker">Smart Speaker</option>
+                            {categories.map((category, index) => (
+                                <option key={index} value={category.categoryId}>
+                                    {category.categoryName}
+                                </option>
+                            ))}
                         </select>
                     </label>
                     <label>
@@ -76,29 +95,41 @@ function AddProductPopup({ onClose }) {
                         />
                     </label>
                     <label>
+                        Manufacturer Name:
+                        <input
+                            type="text"
+                            value={ManufacturerName}
+                            onChange={(e) => setManufacturerName(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <label>
                         Description:
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </label>
-                    <label>
-                        Price:
-                        <input
-                            type="number"
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
-                            required
-                        />
-                    </label>
-                    <label>
-                        Image:
-                        <input
-                            type="file"
-                            onChange={(e) => setImage(e.target.files[0])} 
-                            required
-                        />
-                    </label>
+                    <div style={{ display: 'flex', gap: '60px' }}>
+                        <label>
+                            Price:
+                            <input
+                                type="number"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                required
+                            />
+                        </label>
+                        <label>
+                            Image:
+                            <input
+                                type="file"
+                                onChange={(e) => setImage(e.target.files[0])}
+                                required
+                            />
+                        </label>
+                    </div>
+                
                     <label>
                         Retailer Special Discounts:
                         <input

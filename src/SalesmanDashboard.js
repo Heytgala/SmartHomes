@@ -56,7 +56,7 @@ function SalesmanDashboard() {
 
         try {
             const response = await fetch(url, {
-                method: 'POST',
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -67,7 +67,7 @@ function SalesmanDashboard() {
             });
 
             if (response.ok) {
-                setOrders(orders.filter(order => order.confirmationNumber !== orderNumber));
+                setOrders(orders.filter(order => order.Confirmation_number !== orderNumber));
             } else {
                 console.error('Error canceling order:', response.statusText);
             }
@@ -99,7 +99,7 @@ function SalesmanDashboard() {
 
             if (response.ok) {
                 setOrders(orders.map(order =>
-                    order.confirmationNumber === orderNumber ? { ...order, orderstatus: newStatus } : order
+                    order.Confirmation_number === orderNumber ? { ...order, orderstatus: newStatus } : order
                 ));
                 setShowUpdateOrderPopup(false); 
             } else {
@@ -117,6 +117,7 @@ function SalesmanDashboard() {
                 if (response.ok) {
                     const data = await response.json();
                     setCustomers(data);
+                    console.log(data);
                 } else {
                     console.error('Failed to fetch customers');
                 }
@@ -185,15 +186,15 @@ function SalesmanDashboard() {
                             </thead>
                             <tbody>
                                 {currentOrders.map((order) => (
-                                    <tr key={order.confirmationNumber}>
-                                        <td>{order.confirmationNumber}</td>
-                                        <td>{order.deliveryOption}</td>
-                                        <td>{order.storeLocation}</td>
-                                        <td>{order.orderstatus}</td>
+                                    <tr key={order.Confirmation_number}>
+                                        <td>{order.Confirmation_number}</td>
+                                        <td>{order.DeliveryMethod}</td>
+                                        <td>{order.Store_address}</td>
+                                        <td>{order.Order_status}</td>
                                         <td>
                                             <button className="orders-salesman-updatebutton" onClick={() => handleUpdateOrder(order)}>Update Order</button>
                                             <button
-                                            onClick={() => handleCancelOrder(order.confirmationNumber)}
+                                                onClick={() => handleCancelOrder(order.Confirmation_number)}
                                             className="orders-salesman-button"
                                         >
                                             Cancel Order

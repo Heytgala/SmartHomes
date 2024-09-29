@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './cartmodal.css';
 import BASE_URL from './config';
 
-function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
+function CheckoutModal({ show, onClose, onSubmit, setCartItems, cartItems }) {
     const userName = localStorage.getItem('userName');
     const [formData, setFormData] = useState({
         name: '',
@@ -18,6 +18,7 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
     const [confirmationNumber, setConfirmationNumber] = useState('');
     const [deliveryDate, setDeliveryDate] = useState('');
     const [orderstatus, setOrderStatus] = useState('');
+    const [stores, setStores] = useState([]); 
 
     useEffect(() => {
         if (show) {
@@ -34,8 +35,21 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
                 deliveryMethod: 'Home',
                 storeLocation: ''
             });
+            fetchStores();
         }
     }, [show]);
+
+    const fetchStores = () => {
+        fetch(`${BASE_URL}/getStores`)
+            .then(response => response.json())
+            .then(data => {
+                setStores(data);
+                
+            })
+            .catch(error => {
+                console.error('Error fetching stores:', error);
+            });
+    };
 
     const handleInputChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,9 +61,11 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
         const confirmationNum = 'CN' + Math.floor(100000 + Math.random() * 900000);
         setConfirmationNumber(confirmationNum);
 
-        const orderStatus = 'Completed';
+        const orderStatus = 'Order Placed';
         setOrderStatus(orderStatus);
 
+        const date = new Date();
+        const OrderDate = new Date(date.setDate(date.getDate()));
         const today = new Date();
         const deliveryOrPickupDate = new Date(today.setDate(today.getDate() + 14));
         setDeliveryDate(deliveryOrPickupDate.toDateString());
@@ -58,8 +74,10 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
             ...formData,
             confirmationNumber: confirmationNum,
             deliveryDate: deliveryOrPickupDate.toDateString(),
+            OrderDate: OrderDate.toDateString(),
             userName: userName,
-            orderstatus: orderStatus
+            orderstatus: orderStatus,
+            cartItems: cartItems
         };
 
         console.log("Order Data to be sent:", orderData);
@@ -125,25 +143,20 @@ function CheckoutModal({ show, onClose, onSubmit, setCartItems }) {
 
                         <label>Delivery Method:</label>
                         <select name="deliveryMethod" className="Checkoutselect" onChange={handleInputChange}>
-                            <option value="Home">Home Delivery</option>
+                            <option value="Home">Home Delivery (Shipping Cost - $50)</option>
                             <option value="Store">In-Store Pickup</option>
                         </select>
 
                         {formData.deliveryMethod === 'Store' && (
                             <div>
-                                <label>Select Store Location:</label>
+                                <label>Store Location:</label>
                                 <select name="storeLocation" className="Checkoutselect" onChange={handleInputChange} required>
                                     <option value="">Select Store</option>
-                                    <option value="60616 - Chicago">60616 - Chicago</option>
-                                    <option value="10005 - New York">10005 - New York</option>
-                                    <option value="90007 - Los Angeles">90007 - Los Angeles</option>
-                                    <option value="22434 - San Diego">22434 - San Diego</option>
-                                    <option value="94016 - San Francisco">94016 - San Francisco</option>
-                                    <option value="46204 - Indiana">46204 - Indiana</option>
-                                    <option value="27213 - North Carolina">27213 - North Carolina</option>
-                                    <option value="02018 - Boston">02018 - Boston</option>
-                                    <option value="88901 - Las Vegas">88901 - Las Vegas</option>
-                                    <option value="33109 - Miami">33109 - Miami</option>
+                                    {stores.map(store => (
+                                        <option key={store.storeID} value={store.storeID}>
+                                            {store.street}, {store.city}, {store.state} {store.zipCode} 
+                                        </option>
+                                    ))}
                                 </select>
                             </div>
                         )}

@@ -21,8 +21,9 @@ function Dashboard() {
                 const response = await fetch(`${BASE_URL}/productlist`);
                 const text = await response.text();
                 const data = JSON.parse(text);
+                console.log(data);
                 const categories = ['All', ...new Set(data.map(product => product.categoryName))];
-
+                
                 setProducts(data);
                 setCategories(categories); 
             } catch (error) {
@@ -82,6 +83,10 @@ function Dashboard() {
         setShowAddProductPopup(false);
     };
 
+    const handleAddProduct = (newProduct) => {
+        setProducts(products.filter(product => product.productName === newProduct));
+    };
+
     const filteredProducts = selectedCategory === 'All'
         ? products
         : products.filter(product => product.categoryName === selectedCategory);
@@ -129,7 +134,7 @@ function Dashboard() {
                 </div>
 
                 {showAddProductPopup && (
-                    <AddProductPopup onClose={handleClosePopup} />
+                    <AddProductPopup onClose={handleClosePopup} onAddProduct={handleAddProduct} />
                 )}
 
                 <div className="product-container">
@@ -137,7 +142,7 @@ function Dashboard() {
                         currentProducts.map((product, index) => (
                             <div key={index} className="product-card">
                                 <h2 className="Header-product">{product.categoryName}</h2>
-                                <img src={`${BASE_URL}/${product.image}`} alt={product.productName} className="product-image" />
+                                <img src={`${BASE_URL}/${product.imagePath}`} alt={product.productName} className="product-image" />
                                 <h3>{product.productName}</h3>
                                 <p>{product.description}</p>
                                 <p><strong>Price:</strong> ${product.price}</p>

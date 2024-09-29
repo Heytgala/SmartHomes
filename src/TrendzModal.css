@@ -1,0 +1,66 @@
+.trend-modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background with opacity */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.trend-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.trend-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+}
+
+.trend-close {
+    position: absolute;
+    top: 120px;
+    right: 280px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+
+
+.trend-row {
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    gap: 15px; /* Space between subcontainers */
+}
+
+.trend-subcontainer {
+    background-color: #f4f4f4;
+    padding: 20px;
+    flex: 1; /* Grow to fill space equally */
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+    .trend-subcontainer p,
+    .trend-subcontainer h3,
+    .trend-subcontainer h4 {
+        margin: 0;
+        font-size: 16px;
+    }
+
+.trend-row-title {
+    margin: 1em 0 0.5em; /* Adjust spacing as needed */
+    font-size: 1.5em; /* Size of the title */
+    font-weight: bold; /* Bold for emphasis */
+    text-align: left; /* Align the title to the left */
+}

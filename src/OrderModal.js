@@ -43,12 +43,10 @@ const OrdersModal = ({ show, onClose }) => {
 
     const handleCancelOrder = async (orderNumber) => {
         const url = `${BASE_URL}/cancelOrder`;
-        console.log('POST URL:', url); 
-        console.log('Request Payload:', JSON.stringify({ orderNumber, userName }));
 
         try {
             const response = await fetch(url, {
-                method: 'POST',
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -59,7 +57,7 @@ const OrdersModal = ({ show, onClose }) => {
             });
 
             if (response.ok) {
-                setOrders(orders.filter(order => order.confirmationNumber !== orderNumber));
+                setOrders(orders.filter(order => order.OrderID !== orderNumber));
                 setOrderDetails(null); 
             } else {
                 console.error('Error canceling order:', response.statusText);
@@ -70,13 +68,13 @@ const OrdersModal = ({ show, onClose }) => {
     };
 
 
-    const isCancelButtonEnabled = (deliveryDate) => {
+    const isCancelButtonEnabled = (deliveryDate, Orderstatus) => {
         const today = new Date();
         const deliveryDateObj = new Date(deliveryDate);
         const isBeforeDeliveryDate = today <= deliveryDateObj;
         const isBeforeFiveBusinessDays = today <= new Date(deliveryDateObj.setDate(deliveryDateObj.getDate() - 5));
-
-        return isBeforeDeliveryDate && isBeforeFiveBusinessDays;
+        const isStatusCancelable = Orderstatus === 'Order Placed';
+        return isBeforeDeliveryDate && isBeforeFiveBusinessDays && isStatusCancelable;
     };
 
 
@@ -89,7 +87,7 @@ const OrdersModal = ({ show, onClose }) => {
                     <table className="orders-table">
                         <thead>
                             <tr>
-                                <th>Order Number</th>
+                                <th>Order Confirmation Number</th>
                                 <th>Delivery Method</th>
                                 <th>Store Location</th>
                                 <th>Status</th>
@@ -98,15 +96,15 @@ const OrdersModal = ({ show, onClose }) => {
                         </thead>
                         <tbody>
                             {currentOrders.map(order => (
-                                <tr key={order.confirmationNumber}>
-                                    <td>{order.confirmationNumber}</td>
-                                    <td>{order.deliveryOption}</td>
-                                    <td>{order.storeLocation}</td>
-                                    <td>{order.orderstatus}</td>
+                                <tr key={order.Confirmation_number}>
+                                    <td>{order.Confirmation_number}</td>
+                                    <td>{order.DeliveryMethod}</td>
+                                    <td>{order.Store_address}</td>
+                                    <td>{order.Order_status}</td>
                                     <td>
                                         <button
-                                            disabled={!isCancelButtonEnabled(order.estimatedDeliveryDate)}
-                                            onClick={() => handleCancelOrder(order.confirmationNumber)}
+                                            disabled={!isCancelButtonEnabled(order.shipDate, order.Order_status)}
+                                            onClick={() => handleCancelOrder(order.OrderID)}
                                             className="orders-button"
                                         >
                                             Cancel Order

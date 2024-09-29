@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './UpdateOrderPopup.css';
 
 function UpdateOrderPopup({ order, onClose, onUpdate }) {
-    const [orderStatus, setOrderStatus] = useState(order.orderstatus);
+    const [orderStatus, setOrderStatus] = useState(order.Order_status);
 
     const handleStatusChange = (event) => {
         setOrderStatus(event.target.value);
@@ -10,7 +10,7 @@ function UpdateOrderPopup({ order, onClose, onUpdate }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onUpdate(order.confirmationNumber, orderStatus);
+        onUpdate(order.Confirmation_number, orderStatus);
     };
 
     return (
@@ -20,7 +20,7 @@ function UpdateOrderPopup({ order, onClose, onUpdate }) {
                 <form onSubmit={handleSubmit}>
                     <div className="update-form-group">
                         <label>Order Number:</label>
-                        <input type="text" value={order.confirmationNumber} readOnly disabled />
+                        <input type="text" value={order.Confirmation_number} readOnly disabled />
                     </div>
                     <div className="update-form-group">
                         <label>Order Status:</label>

@@ -4,10 +4,13 @@ import './layout.css';
 import './global.css';
 import logo from './images/logo.png';
 import { FaShoppingCart, FaChevronDown } from 'react-icons/fa';
+import { FiTrendingUp } from 'react-icons/fi';
 import BASE_URL from './config';
 import CartModal from './CartModal';
 import CheckoutModal from './CheckoutModal';
 import OrdersModal from './OrderModal';
+import ProductReviewModal from './ProductReviewModal';
+import TrendzModal from './TrendzModal';
 
 function Layout() {
     const location = useLocation();
@@ -20,6 +23,8 @@ function Layout() {
     const [showCartModal, setShowCartModal] = useState(false);
     const [showCheckoutModal, setShowCheckoutModal] = useState(false);
     const [showOrdersModal, setShowOrdersModal] = useState(false);
+    const [showReviewModal, setShowReviewModal] = useState(false);
+    const [showTrendzModal, setshowTrendzModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     const navigate = useNavigate();
@@ -157,6 +162,22 @@ function Layout() {
         setShowOrdersModal(true);
     };
 
+    const handleTrendz = () => {
+        setshowTrendzModal(true);
+    }
+
+    const closeTrendzModal = () => {
+        setshowTrendzModal(false);
+    }
+
+    const handleReviewClick = () => {
+        setShowReviewModal(true);
+    }
+
+    const closeReviewModal = () => {
+        setShowReviewModal(false);
+    }
+
     const closeOrdersModal = () => {
         setShowOrdersModal(false);
     };
@@ -164,26 +185,23 @@ function Layout() {
     const aggregateCartItems = (items) => {
         console.log(items);
         const aggregated = items.reduce((acc, item) => {
-            const existingItem = acc.find(i => i.productName === item.productName);
+            const existingItem = acc.find(i => i.ProductName === item.ProductName);
+            const itemDiscount = parseFloat(item.Discounts) || 0;
             if (existingItem) {
                 existingItem.quantity += 1; 
-                existingItem.price = parseFloat(existingItem.price);
-                if (isNaN(item.specialDiscount)) {
-                    item.specialDiscount = 0;
-                }
-                console.log(item.specialDiscount);
-                existingItem.specialDiscount = parseFloat(existingItem.specialDiscount + item.specialDiscount);
+                existingItem.Price = parseFloat(existingItem.Price);
+                existingItem.Discounts += itemDiscount;
                 existingItem.total = (
-                    (existingItem.price * existingItem.quantity) - (existingItem.specialDiscount)
+                    (existingItem.Price * existingItem.quantity) - (existingItem.Discounts)
                 ).toFixed(2); 
             } else {
                 acc.push({
                     ...item,
                     quantity: 1,
-                    price: parseFloat(item.price),
-                    specialDiscount: item.specialDiscount || 0,
+                    Price: parseFloat(item.Price),
+                    Discounts: itemDiscount,
                     total: (
-                        (parseFloat(item.price) - (item.specialDiscount || 0)) * 1
+                        (parseFloat(item.Price) - itemDiscount) * 1
                     ).toFixed(2)
                 });
             }
@@ -194,8 +212,8 @@ function Layout() {
 
     const calculateTotal = () => {
         return cartItems.reduce((total, item) => {
-            const discount = item.specialDiscount || 0;
-            return total + ((item.price - discount) * item.quantity);
+            const discount = item.Discounts || 0;
+            return total + ((item.Price - discount) * item.quantity);
         }, 0).toFixed(2);
     };
 
@@ -212,7 +230,7 @@ function Layout() {
             });
 
             if (response.ok) {
-                const updatedCart = cartItems.filter(item => item.productName !== productName);
+                const updatedCart = cartItems.filter(item => item.ProductName !== productName);
                 setCartItems(updatedCart);
             } else {
                 console.error('Error removing item from the server:', response.statusText);
@@ -248,6 +266,9 @@ function Layout() {
                     <br />
                 </div>
                 <div className="search-container">
+                    <button className="review-orders" onClick={ handleReviewClick }>
+                        Product Review
+                    </button>
                     <button className="view-order-button" onClick={handleViewOrdersClick}>
                         View Orders
                     </button>
@@ -348,7 +369,13 @@ function Layout() {
                             </ul>
                         )}
                     </ul>
+                    <div className="left-nav-bar-2">
+                        <FiTrendingUp size={25} />
+                        <button className="trendz" onClick={ handleTrendz }>Trending</button>
+                        
+                    </div>
                 </div>
+                
                 <div className="content">
                     <Outlet />
                 </div>
@@ -371,13 +398,13 @@ function Layout() {
                             <tbody>
                                 {aggregateCartItems(cartItems).map((item, index) => (
                                     <tr key={index}>
-                                        <td>{item.productName}</td>
-                                        <td>${item.price.toFixed(2)}</td>
+                                        <td>{item.ProductName}</td>
+                                        <td>${item.Price.toFixed(2)}</td>
                                         <td>{item.quantity}</td>                                        
-                                        <td>{item.specialDiscount > 0 ? `$${item.specialDiscount.toFixed(2)}` : ''}</td>
+                                        <td>{item.Discounts > 0 ? `$${item.Discounts.toFixed(2)}` : ''}</td>
                                         <td>${item.total}</td>
                                         <td>
-                                            <button className="RemoveButton" onClick={() => handleRemoveItem(item.productName)}>
+                                            <button className="RemoveButton" onClick={() => handleRemoveItem(item.ProductName)}>
                                                 Remove
                                             </button>
                                         </td>
@@ -404,9 +431,11 @@ function Layout() {
                 )}
             </CartModal>
             
-            
-            <CheckoutModal show={showCheckoutModal} onClose={closeCheckoutModal} onSubmit={handleCheckoutSubmit} setCartItems={setCartItems} />
+
+            <CheckoutModal show={showCheckoutModal} onClose={closeCheckoutModal} onSubmit={handleCheckoutSubmit} setCartItems={setCartItems} cartItems={cartItems} />
             <OrdersModal show={showOrdersModal} onClose={closeOrdersModal} />
+            <ProductReviewModal show={showReviewModal} onClose={closeReviewModal} />
+            <TrendzModal show={showTrendzModal} onClose={closeTrendzModal }/>
         </div>
     );
 }
