@@ -52,6 +52,8 @@ function SalesmanDashboard() {
     };
 
     const handleCancelOrder = async (orderNumber) => {
+        console.log(orderNumber);
+        console.log(selectedCustomer);
         const url = `${BASE_URL}/cancelOrder`;
 
         try {
@@ -67,7 +69,7 @@ function SalesmanDashboard() {
             });
 
             if (response.ok) {
-                setOrders(orders.filter(order => order.Confirmation_number !== orderNumber));
+                setOrders(orders.filter(order => order.OrderID !== orderNumber));
             } else {
                 console.error('Error canceling order:', response.statusText);
             }
@@ -99,7 +101,7 @@ function SalesmanDashboard() {
 
             if (response.ok) {
                 setOrders(orders.map(order =>
-                    order.Confirmation_number === orderNumber ? { ...order, orderstatus: newStatus } : order
+                    order.OrderID === orderNumber ? { ...order, Order_status: newStatus } : order
                 ));
                 setShowUpdateOrderPopup(false); 
             } else {
@@ -136,6 +138,18 @@ function SalesmanDashboard() {
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
+    };
+
+    const isCancelButtonEnabled = (Orderstatus) => {
+        console.log(Orderstatus);
+        const isStatusCancelable = Orderstatus === 'Order Placed';
+        return isStatusCancelable;
+    };
+
+    const isUpdateCancelButtonEnabled = (Orderstatus) => {
+        console.log(Orderstatus);
+        const isStatusCancelable = Orderstatus === 'Order Placed' || Orderstatus === 'Pending';
+        return isStatusCancelable;
     };
 
     return (
@@ -192,9 +206,10 @@ function SalesmanDashboard() {
                                         <td>{order.Store_address}</td>
                                         <td>{order.Order_status}</td>
                                         <td>
-                                            <button className="orders-salesman-updatebutton" onClick={() => handleUpdateOrder(order)}>Update Order</button>
+                                            <button className="orders-salesman-updatebutton" disabled={!isUpdateCancelButtonEnabled(order.Order_status)} onClick={() => handleUpdateOrder(order)}>Update Order</button>
                                             <button
-                                                onClick={() => handleCancelOrder(order.Confirmation_number)}
+                                                disabled={!isCancelButtonEnabled(order.Order_status)}
+                                                onClick={() => handleCancelOrder(order.OrderID)}
                                             className="orders-salesman-button"
                                         >
                                             Cancel Order

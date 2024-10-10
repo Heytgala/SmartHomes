@@ -71,6 +71,7 @@
         padding-left: 20px;
     }
 
+
 .add-product-button {
     padding: 10px 20px;
     background-color: #007bff;
@@ -286,6 +287,11 @@
         background-color: #0056b3;
     }
 
+.orders-salesman-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 .orders-salesman-updatebutton {
     background-color: green;
     color: white;
@@ -295,8 +301,15 @@
     cursor: pointer;
 }
 
+
     .orders-salesman-updatebutton:hover {
         background-color: forestgreen;
+    }
+
+
+    .orders-salesman-updatebutton:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
     }
 
 

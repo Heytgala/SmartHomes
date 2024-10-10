@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import BASE_URL from './config';
 import './ProductDisplay.css';
+import ProductAccessoryPopup from './ProductAccessory';
 
-function SmartDoorbells() {
+
+function SmartSpeaker() {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const productsPerPage = 3;
     const userName = localStorage.getItem('userName');
     const [selectedDiscounts, setSelectedDiscounts] = useState({});
+    const [showAddProductAccessoryPopup, setShowAddProductAccessoryPopup] = useState(false);
+
+    const [selectedprod, setSelectedProd] = useState(null);
 
 
     useEffect(() => {
@@ -78,6 +83,14 @@ function SmartDoorbells() {
         }));
     };
 
+    const handleAddProductAccessoryClick = (product) => {
+        setSelectedProd(product);
+        setShowAddProductAccessoryPopup(true);
+    };
+
+    const handleAccessoryClosePopup = () => {
+        setShowAddProductAccessoryPopup(false);
+    };
 
     return (
         <div>
@@ -97,7 +110,7 @@ function SmartDoorbells() {
                                             checked={!!selectedDiscounts[product.productName]}
                                             onChange={() => handleCheckboxChange(product.productName)}
                                         />
-                                        Select Retailer Special Discount: ${product.discounts}
+                                        Special Discount: ${product.discounts}
                                     </label>
                                 </div>
                             )}
@@ -109,6 +122,7 @@ function SmartDoorbells() {
                                 >
                                     Buy Now
                                 </button>
+                                <button type="submit" className="ViewProduct" onClick={() => handleAddProductAccessoryClick(product)}>Accessory</button>
                             </div>
                         </div>
                     ))
@@ -116,6 +130,7 @@ function SmartDoorbells() {
                     <p>No products available</p>
                 )}
             </div>
+
             <div className="pagination-controls">
                 {Array.from({ length: totalPages }, (_, index) => (
                     <button
@@ -127,8 +142,12 @@ function SmartDoorbells() {
                     </button>
                 ))}
             </div>
+
+            {showAddProductAccessoryPopup && (
+                <ProductAccessoryPopup product={selectedprod} onClose={handleAccessoryClosePopup} />
+            )}
         </div>
     );
 }
 
-export default SmartDoorbells;
+export default SmartSpeaker;

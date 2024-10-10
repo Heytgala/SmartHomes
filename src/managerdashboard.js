@@ -4,6 +4,9 @@ import logo from './images/logo.png';
 import BASE_URL from './config';
 import UpdateProductPopup from './UpdateProduct';
 import AddProductPopup from './AddProduct';
+import AddProductAccessoryPopup from './AddProductAccessory';
+import InventoryReportPopup from './InventoryReport';
+import SalesReportPopup from './SalesReport';
 
 function Dashboard() {
     const [products, setProducts] = useState([]);
@@ -11,6 +14,9 @@ function Dashboard() {
     const [selectedCategory, setSelectedCategory] = useState('All'); 
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showAddProductPopup, setShowAddProductPopup] = useState(false);
+    const [showAddProductAccessoryPopup, setShowAddProductAccessoryPopup] = useState(false);
+    const [showSalesReportPopup, setShowSalesReportPopup] = useState(false);
+    const [showInventoryReportPopup, setShowInventoryReportPopup] = useState(false);
     const [currentPage, setCurrentPage] = useState(1); 
     const productsPerPage = 4; 
     const userName = localStorage.getItem('userName');
@@ -34,14 +40,14 @@ function Dashboard() {
         fetchData();
     }, []);
 
-    const handleDelete = async (productName) => {
+    const handleDelete = async (productName, productID) => {
         try {
             const response = await fetch(`${BASE_URL}/productlist`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ productName }),
+                body: JSON.stringify({ productName, productID }),
             });
 
             if (!response.ok) {
@@ -77,6 +83,30 @@ function Dashboard() {
 
     const handleAddProductClick = () => {
         setShowAddProductPopup(true);
+    };
+
+    const handleAddProductAccessoryClick = () => {
+        setShowAddProductAccessoryPopup(true);
+    };
+    
+    const InventoryReportClick = () => {
+        setShowInventoryReportPopup(true);
+    };
+
+    const CloseInventoryReportPopup = () => {
+        setShowInventoryReportPopup(false);
+    };
+
+    const SalesReportClick = () => {
+        setShowSalesReportPopup(true);
+    };
+
+    const CloseSalesReportPopup = () => {
+        setShowSalesReportPopup(false);
+    };
+
+    const handleCloseAccessoryPopup = () => {
+        setShowAddProductAccessoryPopup(false);
     };
 
     const handleClosePopup = () => {
@@ -115,7 +145,12 @@ function Dashboard() {
             <div className="product-list">
                 <div className="title-container">
                     <h1>Product List</h1>
-                    <button className="add-product-button" onClick={handleAddProductClick}>Add New Product</button>
+                    <div className="AddButtons">
+                        <button className="add-product-button" onClick={SalesReportClick}>Sales Report</button>
+                        <button className="add-product-button" onClick={ InventoryReportClick }>Inventory Report</button>
+                        <button className="add-product-button" onClick={handleAddProductAccessoryClick}>Add Product Accessory</button>
+                        <button className="add-product-button" onClick={handleAddProductClick}>Add New Product</button>
+                    </div>
                 </div>
 
                 <div className="category-tabs">
@@ -133,8 +168,20 @@ function Dashboard() {
                     ))}
                 </div>
 
+                {showInventoryReportPopup && (
+                    <InventoryReportPopup onClose={CloseInventoryReportPopup} />
+                )}
+
+                {showSalesReportPopup && (
+                    <SalesReportPopup onClose={CloseSalesReportPopup} />
+                )}
+
                 {showAddProductPopup && (
                     <AddProductPopup onClose={handleClosePopup} onAddProduct={handleAddProduct} />
+                )}
+
+                {showAddProductAccessoryPopup && (
+                    <AddProductAccessoryPopup onClose={handleCloseAccessoryPopup} />
                 )}
 
                 <div className="product-container">
@@ -148,7 +195,7 @@ function Dashboard() {
                                 <p><strong>Price:</strong> ${product.price}</p>
                                 <div className="button-container">
                                     <button className="productbutton1" onClick={() => setSelectedProduct(product)}>Update</button>
-                                    <button className="productbutton2" onClick={() => handleDelete(product.productName)}>Delete</button>
+                                    <button className="productbutton2" onClick={() => handleDelete(product.productName, product.productID)}>Delete</button>
                                 </div>
                             </div>
                         ))

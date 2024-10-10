@@ -10,7 +10,7 @@ function UpdateOrderPopup({ order, onClose, onUpdate }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onUpdate(order.Confirmation_number, orderStatus);
+        onUpdate(order.OrderID, orderStatus);
     };
 
     return (
@@ -19,16 +19,16 @@ function UpdateOrderPopup({ order, onClose, onUpdate }) {
                 <h2>Update Order</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="update-form-group">
-                        <label>Order Number:</label>
+                        <label>Order Confirmation Number:</label>
                         <input type="text" value={order.Confirmation_number} readOnly disabled />
                     </div>
                     <div className="update-form-group">
                         <label>Order Status:</label>
                         <select value={orderStatus} onChange={handleStatusChange}>
-                            <option value="Completed">Completed</option>
+                            <option value=""> Select status</option>
+                            <option value="Order Placed">Order Placed</option>
                             <option value="Pending">Pending</option>
-                            <option value="Shipped">Shipped</option>
-                            <option value="Delivered">Delivered</option>
+                            <option value="Closed">Shipped/Delivered</option>
                         </select>
                     </div>
                     <div className="update-form-actions">

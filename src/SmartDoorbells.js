@@ -1,6 +1,8 @@
 ﻿import React, { useState, useEffect } from 'react';
 import BASE_URL from './config';
 import './ProductDisplay.css';
+import ProductAccessoryPopup from './ProductAccessory';
+
 
 function SmartDoorbells() {
     const [products, setProducts] = useState([]);
@@ -9,7 +11,8 @@ function SmartDoorbells() {
     const productsPerPage = 3;
     const userName = localStorage.getItem('userName');
     const [selectedDiscounts, setSelectedDiscounts] = useState({});
-
+    const [showAddProductAccessoryPopup, setShowAddProductAccessoryPopup] = useState(false);
+    const [selectedprod, setSelectedProd] = useState(null);
     useEffect(() => {
         fetch(`${BASE_URL}/productlist?categoryName=Smart%20Doorbells`)
             .then(response => {
@@ -76,6 +79,15 @@ function SmartDoorbells() {
         }));
     };
 
+    const handleAddProductAccessoryClick = (product) => {
+        setSelectedProd(product);
+        setShowAddProductAccessoryPopup(true);
+    };
+
+    const handleAccessoryClosePopup = () => {
+        setShowAddProductAccessoryPopup(false);
+    };
+
     return (
         <div>
             <div className="products-container">
@@ -108,6 +120,7 @@ function SmartDoorbells() {
                                 >
                                     Buy Now
                                 </button>
+                                <button type="submit" className="ViewProduct" onClick={() => handleAddProductAccessoryClick(product)}>Accessory</button>
                             </div>
                         </div>
                     ))
@@ -127,6 +140,10 @@ function SmartDoorbells() {
                     </button>
                 ))}
             </div>
+
+            {showAddProductAccessoryPopup && (
+                <ProductAccessoryPopup product={selectedprod} onClose={handleAccessoryClosePopup} />
+            )}
         </div>
     );
 }

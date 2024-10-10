@@ -42,6 +42,9 @@ const OrdersModal = ({ show, onClose }) => {
     };
 
     const handleCancelOrder = async (orderNumber) => {
+        console.log(orderNumber);
+        console.log(userName);
+
         const url = `${BASE_URL}/cancelOrder`;
 
         try {

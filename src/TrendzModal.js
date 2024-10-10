@@ -52,7 +52,7 @@ const TrendzModal = ({ show, onClose }) => {
         show && (
             <div className="trend-modal">
                 <div className="trend-modal-content">
-                    <span className="trend-close" onClick={onClose}>&times;</span>
+                    <button className="trend-close-button" onClick={onClose}>&times;</button>
                     <h2>Trending</h2>
 
                     <div className="trend-container">
@@ -61,7 +61,7 @@ const TrendzModal = ({ show, onClose }) => {
                             {likedProducts.length > 0 ? (
                                 likedProducts.map((item, index) => (
                                     <div key={index} className="trend-subcontainer">
-                                        <h4>{item["Product Category Name"]} -  {item["Product Name"]}</h4>
+                                        <h4>{item["Product Name"]}</h4>
                                         <p>Reviews: {item.reviewComments}</p>
                                     </div>
                                 ))
@@ -83,6 +83,7 @@ const TrendzModal = ({ show, onClose }) => {
                                 <p>No zip code data available.</p>
                             )}
                         </div>
+
                         <div className="trend-row">
                             <h3 className="trend-row-title">Top Sold Products</h3>
                             {soldproducts.length > 0 ? (

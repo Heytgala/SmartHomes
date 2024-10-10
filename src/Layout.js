@@ -219,10 +219,15 @@ function Layout() {
 
 
 
-    const handleRemoveItem = async (productName) => {
+    const handleRemoveItem = async (item) => {
         try {
-            const ProductName = encodeURIComponent(productName);
-            const response = await fetch(`${BASE_URL}/buyProduct?userName=${userName}&productName=${ProductName}`, {
+            const { ProductName, accessoryname } = item;
+            const ProductNameencode = encodeURIComponent(ProductName);
+            const accessorynameEncoded = encodeURIComponent(accessoryname);
+            const finalAccessoryName = accessorynameEncoded === '' ? null : accessorynameEncoded;
+            console.log(ProductNameencode);
+            console.log(finalAccessoryName);
+            const response = await fetch(`${BASE_URL}/buyProduct?userName=${userName}&productName=${ProductNameencode}` + (finalAccessoryName ? `&accessoryname=${finalAccessoryName}` : ''), {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -230,7 +235,11 @@ function Layout() {
             });
 
             if (response.ok) {
-                const updatedCart = cartItems.filter(item => item.ProductName !== productName);
+                console.log(cartItems);
+                const updatedCart = cartItems.filter(cartItem =>
+                    cartItem.ProductName !== ProductName && cartItem.accessoryname !== accessoryname
+                );
+                //const updatedCart = cartItems.filter(item => item.ProductName !== productName);
                 setCartItems(updatedCart);
             } else {
                 console.error('Error removing item from the server:', response.statusText);
@@ -398,13 +407,13 @@ function Layout() {
                             <tbody>
                                 {aggregateCartItems(cartItems).map((item, index) => (
                                     <tr key={index}>
-                                        <td>{item.ProductName}</td>
+                                        <td>{item.ProductName === "null" ? item.accessoryname : item.ProductName}</td>
                                         <td>${item.Price.toFixed(2)}</td>
                                         <td>{item.quantity}</td>                                        
                                         <td>{item.Discounts > 0 ? `$${item.Discounts.toFixed(2)}` : ''}</td>
                                         <td>${item.total}</td>
                                         <td>
-                                            <button className="RemoveButton" onClick={() => handleRemoveItem(item.ProductName)}>
+                                            <button className="RemoveButton" onClick={() => handleRemoveItem(item)}>
                                                 Remove
                                             </button>
                                         </td>

@@ -102,7 +102,7 @@ const ProductReviewModal = ({ show, onClose }) => {
         })
             .then(response => {
                 if (response.ok) {
-                    console.log("Review submitted successfully!");
+                    alert("Review submitted successfully!");
                     onClose();
                 } else {
                     console.error("Failed to submit review");
@@ -118,7 +118,8 @@ const ProductReviewModal = ({ show, onClose }) => {
     useEffect(() => {
         if (categoryName === "1") {
             setcategoryval("Smart Speaker");
-        } else if (categoryName === "2") {
+        }
+        else if (categoryName === "2") {
             setcategoryval("Smart Thermostats");
         }
         else if (categoryName === "3") {
