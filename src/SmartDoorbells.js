@@ -55,7 +55,8 @@ function SmartDoorbells() {
                 imagePath: product.imagePath,
                 description: product.description,
                 userName: userName,
-                ...(isDiscountSelected && product.discounts ? { discounts: product.discounts } : {})
+                ...(isDiscountSelected && product.discounts ? { discounts: product.discounts } : {}),
+                Rebates:product.Rebates || ''
             }),
         })
             .then(response => {
@@ -97,8 +98,10 @@ function SmartDoorbells() {
                             <img src={`${BASE_URL}/${product.imagePath}`} alt={product.name} className="prod-image" />
                             <h2 className="prod-name">{product.productName}</h2>
                             <p className="prod-description">{product.description}</p>
-                            <p className="prod-price">${parseFloat(product.price).toFixed(2)}</p>
-
+                            <p className="prod-price">${parseFloat(product.price).toFixed(2)}</p>  
+                            {product.Rebates && (
+                                <p className="prod-description">Rebates: ${product.Rebates}</p>
+                            )}
                             {product.discounts && (
                                 <div className="discount-checkbox">
                                     <label>

@@ -54,6 +54,20 @@
         background-color: darkblue;
     }
 
+.service {
+    background-color: goldenrod;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+    .service:hover {
+        background-color: darkgoldenrod;
+    }
 
 
 .search-container {

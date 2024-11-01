@@ -10,6 +10,7 @@ import CartModal from './CartModal';
 import CheckoutModal from './CheckoutModal';
 import OrdersModal from './OrderModal';
 import ProductReviewModal from './ProductReviewModal';
+import ServiceReviewModal from './ServiceReviewModal';
 import TrendzModal from './TrendzModal';
 
 function Layout() {
@@ -25,6 +26,7 @@ function Layout() {
     const [showOrdersModal, setShowOrdersModal] = useState(false);
     const [showReviewModal, setShowReviewModal] = useState(false);
     const [showTrendzModal, setshowTrendzModal] = useState(false);
+    const [showServiceModal, setShowServiceModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     const navigate = useNavigate();
@@ -47,28 +49,6 @@ function Layout() {
         fetchProductData();
     }, []);
 
-    useEffect(() => {
-        const filterProducts = () => {
-            if (!searchTerm) {
-                setFilteredProducts(productData);
-                setShowSearchResults(false);
-                return;
-            }
-            const lowercasedSearchTerm = searchTerm.toLowerCase();
-            const filtered = productData.filter(product =>
-                product.productName.toLowerCase().includes(lowercasedSearchTerm) ||
-                product.categoryName.toLowerCase().includes(lowercasedSearchTerm)
-            );
-            setFilteredProducts(filtered);
-            setShowSearchResults(filtered.length > 0); 
-        };
-        filterProducts();
-    }, [searchTerm, productData]);
-
-    const handleSearch = (event) => {
-        setSearchTerm(event.target.value);
-    };
-
     const handleNavigation = (path) => {
         navigate(path, { state: { name } });
     };
@@ -82,7 +62,7 @@ function Layout() {
             .filter(product => product.categoryName === category)
             .map(product => (
                 <li key={product.productName} onClick={() => handleNavigation(categoryPaths[category])}>
-                    {product.productName}
+                    {product.productName} 
                 </li>
             ));
     };
@@ -93,6 +73,14 @@ function Layout() {
         'Smart Speaker': '/main/smartspeaker',
         'Smart Lighting': '/main/smartlighting',
         'Smart Thermostats': '/main/smartthermostats',
+    };
+    
+    const categoryPathonID = {
+        4 : '/main/smartdoorbells',
+        5: '/main/smartdoorlock',
+        1 : '/main/smartspeaker',
+        3: '/main/smartlighting',
+        2: '/main/smartthermostats',
     };
 
     const handleCartClick = async () => {
@@ -178,6 +166,14 @@ function Layout() {
         setShowReviewModal(false);
     }
 
+    const handleServiceClick = () => {
+        setShowServiceModal(true);
+    }
+
+    const closeServiceModal = () => {
+        setShowServiceModal(false);
+    }
+
     const closeOrdersModal = () => {
         setShowOrdersModal(false);
     };
@@ -187,12 +183,14 @@ function Layout() {
         const aggregated = items.reduce((acc, item) => {
             const existingItem = acc.find(i => i.ProductName === item.ProductName);
             const itemDiscount = parseFloat(item.Discounts) || 0;
+            const rebates = parseFloat(item.Rebates) || 0;
             if (existingItem) {
                 existingItem.quantity += 1; 
                 existingItem.Price = parseFloat(existingItem.Price);
                 existingItem.Discounts += itemDiscount;
+                existingItem.Rebates += rebates;
                 existingItem.total = (
-                    (existingItem.Price * existingItem.quantity) - (existingItem.Discounts)
+                    (existingItem.Price * existingItem.quantity) - (existingItem.Discounts) - (existingItem.Rebates)
                 ).toFixed(2); 
             } else {
                 acc.push({
@@ -200,8 +198,9 @@ function Layout() {
                     quantity: 1,
                     Price: parseFloat(item.Price),
                     Discounts: itemDiscount,
+                    Rebates: rebates,
                     total: (
-                        (parseFloat(item.Price) - itemDiscount) * 1
+                        (parseFloat(item.Price) - itemDiscount - rebates) * 1
                     ).toFixed(2)
                 });
             }
@@ -210,10 +209,33 @@ function Layout() {
         return aggregated;
     };
 
+    const [suggestions, setSuggestions] = useState([]);
+
+    const handleInputChange = async (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+        console.log(value);
+        if (value) {
+            try {
+                const response = await fetch(`${BASE_URL}/AjaxUtility?searchTerm=${encodeURIComponent(value)}`); 
+                const data = await response.json(); 
+                setSuggestions(data); 
+            } catch (error) {
+                console.error('Error fetching suggestions:', error);
+            }
+        } else {
+            setSuggestions([]);
+        }
+    }
+
     const calculateTotal = () => {
         return cartItems.reduce((total, item) => {
-            const discount = item.Discounts || 0;
-            return total + ((item.Price - discount) * item.quantity);
+            console.log(item);
+            const discount = parseFloat(item.Discounts) || 0;
+            const rebate = parseFloat(item.Rebates) || 0;
+            console.log(rebate);
+            console.log(discount);
+            return total + ((item.Price - discount - rebate) * item.quantity);
         }, 0).toFixed(2);
     };
 
@@ -225,8 +247,6 @@ function Layout() {
             const ProductNameencode = encodeURIComponent(ProductName);
             const accessorynameEncoded = encodeURIComponent(accessoryname);
             const finalAccessoryName = accessorynameEncoded === '' ? null : accessorynameEncoded;
-            console.log(ProductNameencode);
-            console.log(finalAccessoryName);
             const response = await fetch(`${BASE_URL}/buyProduct?userName=${userName}&productName=${ProductNameencode}` + (finalAccessoryName ? `&accessoryname=${finalAccessoryName}` : ''), {
                 method: 'DELETE',
                 headers: {
@@ -237,8 +257,9 @@ function Layout() {
             if (response.ok) {
                 console.log(cartItems);
                 const updatedCart = cartItems.filter(cartItem =>
-                    cartItem.ProductName !== ProductName && cartItem.accessoryname !== accessoryname
+                    cartItem.ProductName !== ProductName && cartItem.accessoryname !== finalAccessoryName
                 );
+                console.log(updatedCart);
                 //const updatedCart = cartItems.filter(item => item.ProductName !== productName);
                 setCartItems(updatedCart);
             } else {
@@ -275,6 +296,9 @@ function Layout() {
                     <br />
                 </div>
                 <div className="search-container">
+                    <button className="service" onClick={ handleServiceClick }>
+                        Customer Service
+                    </button>
                     <button className="review-orders" onClick={ handleReviewClick }>
                         Product Review
                     </button>
@@ -283,26 +307,19 @@ function Layout() {
                     </button>
                     <input
                         type="text"
-                        className="search-input"
-                        placeholder="Search Products"
                         value={searchTerm}
-                        onChange={handleSearch}
-                        onFocus={() => setShowSearchResults(false)}
-                        onBlur={() => setTimeout(() => setShowSearchResults(false), 200)}
+                        onChange={handleInputChange}
+                        placeholder="Search products..."
                     />
-                    {showSearchResults && (
+                    
+                    {suggestions.length > 0 && (
                         <ul className="search-results-dropdown">
-                            {filteredProducts.length > 0 ? (
-                                filteredProducts.map((product) => (
-                                    <li key={product.productName} onClick={() => handleNavigation(categoryPaths[product.categoryName])}>
-                                        {product.productName}
-                                    </li>
-                                ))
-                            ) : (
-                                <li>No results found</li>
-                            )}
+                            {suggestions.map((suggestion, index) => (
+                                <li key={suggestion.productName} onClick={() => handleNavigation(categoryPathonID[suggestion.categoryID])}>{suggestion.productName}</li>
+                            ))}
                         </ul>
                     )}
+                    
                 </div>
             </div>
             <div className="menu-bar">
@@ -399,6 +416,7 @@ function Layout() {
                                     <th>Product</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
+                                    <th>Rebates</th>
                                     <th>Discount</th>
                                     <th>Total</th>
                                     <th>Actions</th>
@@ -409,7 +427,8 @@ function Layout() {
                                     <tr key={index}>
                                         <td>{item.ProductName === "null" ? item.accessoryname : item.ProductName}</td>
                                         <td>${item.Price.toFixed(2)}</td>
-                                        <td>{item.quantity}</td>                                        
+                                        <td>{item.quantity}</td>
+                                        <td>{item.Rebates > 0 ? `$${item.Rebates.toFixed(2)}` : ''}</td>
                                         <td>{item.Discounts > 0 ? `$${item.Discounts.toFixed(2)}` : ''}</td>
                                         <td>${item.total}</td>
                                         <td>
@@ -444,6 +463,7 @@ function Layout() {
             <CheckoutModal show={showCheckoutModal} onClose={closeCheckoutModal} onSubmit={handleCheckoutSubmit} setCartItems={setCartItems} cartItems={cartItems} />
             <OrdersModal show={showOrdersModal} onClose={closeOrdersModal} />
             <ProductReviewModal show={showReviewModal} onClose={closeReviewModal} />
+            <ServiceReviewModal show={showServiceModal} onClose={closeServiceModal} />
             <TrendzModal show={showTrendzModal} onClose={closeTrendzModal }/>
         </div>
     );

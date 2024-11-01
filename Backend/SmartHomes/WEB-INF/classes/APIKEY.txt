@@ -1,0 +1,5 @@
+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
+
+
+
+.url("https://api.openai.com/v1/chat/completions")

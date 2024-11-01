@@ -9,6 +9,7 @@ function AddProductPopup({ onClose, onAddProduct }) {
     const [image, setImage] = useState(null); 
     const [categoryName, setCategory] = useState('');
     const [specialDiscounts, setSpecialDiscounts] = useState('');
+    const [Rebates, setRebates] = useState('');
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -28,7 +29,7 @@ function AddProductPopup({ onClose, onAddProduct }) {
     const handleAddProduct = async (event) => {
         event.preventDefault();
 
-        if (!productName || !ManufacturerName || !description || !price || !image || !categoryName) {
+        if (!productName || !ManufacturerName || !description || !price || !image || !categoryName ) {
             alert('Please fill out all required fields.');
             return;
         }
@@ -40,6 +41,7 @@ function AddProductPopup({ onClose, onAddProduct }) {
         formData.append('price', price);
         formData.append('image', image); 
         formData.append('specialDiscounts', specialDiscounts || '');
+        formData.append('Rebates', Rebates);
 
         try {
             const response = await fetch(`${BASE_URL}/productlist`, {
@@ -129,15 +131,25 @@ function AddProductPopup({ onClose, onAddProduct }) {
                             />
                         </label>
                     </div>
-                
-                    <label>
-                        Retailer Special Discounts:
-                        <input
-                            type="number"
-                            value={specialDiscounts}
-                            onChange={(e) => setSpecialDiscounts(e.target.value)}
-                        />
-                    </label>
+                    <div style={{ display: 'flex', gap: '60px' }}>
+                        <label>
+                            Retailer Special Discounts:
+                            <input
+                                type="number"
+                                value={specialDiscounts}
+                                onChange={(e) => setSpecialDiscounts(e.target.value)}
+                            />
+                        </label>
+                        <label>
+                            Manufacturer Rebates:
+                            <input
+                                type="number"
+                                value={Rebates}
+                                onChange={(e) => setRebates(e.target.value)}                           
+                            />
+                        </label>
+                    </div>
+                    
 
                     <button type="submit">Add Product</button>
                     <button type="button" onClick={onClose}>Cancel</button>

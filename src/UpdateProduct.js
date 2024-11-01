@@ -14,7 +14,8 @@ function UpdateProductPopup({ product, onClose, onUpdate }) {
                 price: product.price,
                 image: product.imagePath,
                 specialDiscounts: product.discounts,
-                ManufacturerName: product.ManufacturerName
+                ManufacturerName: product.ManufacturerName,
+                Rebates: product.Rebates
             });
         }
     }, [product]);
@@ -44,6 +45,7 @@ function UpdateProductPopup({ product, onClose, onUpdate }) {
 
             const result = await response.json();
             if (result.status === 'success') {
+                alert("Product Updated Succesfuly !!");
                 onUpdate(); 
                 onClose();  
             } else {
@@ -62,7 +64,7 @@ function UpdateProductPopup({ product, onClose, onUpdate }) {
                     <input type="hidden" name="productID" value={formData.productID || ''}></input>
                     <label>
                         Product Name:
-                        <input type="text" name="productName" value={formData.productName || ''} onChange={handleChange} required />
+                        <input type="text" name="productName" value={formData.productName || ''} onChange={handleChange} disabled />
                     </label>
                     <label>
                         Manufacturer Name:
@@ -91,11 +93,17 @@ function UpdateProductPopup({ product, onClose, onUpdate }) {
                             <input type="hidden" name="image" value={formData.image || ''} />
                         </label>
                     </div>
+                    <div style={{ display: 'flex', gap: '60px' }}>
+                        <label>
+                            Special Discounts:
+                            <input type="number" name="specialDiscounts" value={formData.specialDiscounts || ''} onChange={handleChange}  />
+                        </label>
+                        <label>
+                            Manufacturer Rebates:
+                            <input type="number" name="Rebates" value={formData.Rebates || ''} onChange={handleChange} />
+                        </label>
+                    </div>
                     
-                    <label>
-                        Special Discounts:
-                        <input type="number" name="specialDiscounts" value={formData.specialDiscounts || ''} onChange={handleChange} required />
-                    </label>
                     <button type="submit">Update</button>
                     <button type="button" onClick={onClose}>Cancel</button>
                 </form>

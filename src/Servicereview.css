@@ -1,0 +1,85 @@
+.service-review-modal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 900;
+}
+
+.service-review-modal-content {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	width: 700px;
+	max-width: 90%;
+	max-height: 90%;
+}
+
+.service-review-close {
+	float: right;
+	font-size: 24px;
+	font-weight: bold;
+	color: #333;
+	cursor: pointer;
+}
+
+.servicereviewform {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+}
+
+	.servicereviewform select {
+		width: 100%;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		font-size: 16px;
+		box-sizing: border-box;
+	}
+
+	.service-review-close:hover {
+		color: red;
+	}
+
+.service-titlereview {
+	margin-top: 0;
+	margin-bottom: 20px;
+	font-size: 24px;
+	color: #333;
+	justify-content: center;
+	text-align: center;
+}
+
+.servicereviewform label {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.servicereviewform .servicefile {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	box-sizing: border-box;
+}
+
+
+
+.servicereviewform .TicketNumberStatus {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	box-sizing: border-box;
+}
