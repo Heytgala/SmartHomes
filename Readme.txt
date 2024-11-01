@@ -1,5 +1,3 @@
-EWA ASSIGNMENT 3 -- SMART HOMES
-
 1) Firstly install the Apache Tomcat "apache-tomcat-9.0.93" version --> https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.93/bin/
 
 2) Once installed unzip the folder in the "C" drive of your computer
