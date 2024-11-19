@@ -1,0 +1,1 @@
+FROM heytgala/elasticsearch_vector:latest
