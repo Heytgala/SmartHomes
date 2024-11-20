@@ -111,7 +111,7 @@ function SmartThermostats() {
                                             checked={!!selectedDiscounts[product.productName]}
                                             onChange={() => handleCheckboxChange(product.productName)}
                                         />
-                                        Select Retailer Special Discount: ${product.discounts}
+                                        Special Discount: ${product.discounts}
                                     </label>
                                 </div>
                             )}

@@ -1,3 +1,5 @@
+EWA ASSIGNMENT 3 -- SMART HOMES
+
 1) Firstly install the Apache Tomcat "apache-tomcat-9.0.93" version --> https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.93/bin/
 
 2) Once installed unzip the folder in the "C" drive of your computer
@@ -28,7 +30,7 @@ t.java MongoDBDataStoreUtilities.java MySQLDataStoreUtilities.java Store.java
 	p) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . DailySalesReportServlet.java MySQLDataStoreUtilities.java Store.java
 	q) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar -d . AjaxUtility.java
 	r) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar;C:\apache-tomcat-9.0.93\lib\okhttp-4.9.3.jar;C:\apache-tomcat-9.0.93\lib\okio-2.10.0.jar -d . OpenTicketOrderServlet.java MySQLDataStoreUtilities.java Store.java
-
+	s) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . SuggestionsServlet.java
 
 7) Start backend server using following commands in terminal:
    a) set JAVA_HOME=C:\Program Files\Java\jdk-17
@@ -41,6 +43,8 @@ t.java MongoDBDataStoreUtilities.java MySQLDataStoreUtilities.java Store.java
    i) startup.bat
 
 8) Once backend server starts running perfectly try testing the url of it. Default would be "http://localhost:8080/". If it works we move further
+
+9) We need to have our Docker image running before we start our frontend. It would run on "http://localhost:9200/" as default. If it works we move further. Steps for generating docker image can be found in Elastic Search Vector Embedding folder.
 
 9) In frontend folder we have config.js file -- Set baseURL if it is not using default url.
 

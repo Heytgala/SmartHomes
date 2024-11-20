@@ -1,0 +1,95 @@
+.portal-suggestion-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    overflow-y: auto;
+}
+
+.portal-suggestion-modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 700px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+}
+
+.suggestion-close {
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+
+.suggestion-close:hover {
+    color: red;
+}
+
+.suggestiontitle {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    justify-content: center;
+    text-align: center;
+}
+
+    .suggestion-button.active {
+        background-color: darkblue;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+        margin-left: 10px;
+    }
+
+    .suggestion-button:not(.active) {
+        background-color: steelblue;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+        margin-left: 10px;
+    }
+
+
+.searchbutton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+    .searchbutton:hover {
+        background-color: #45a049;
+    }
+
+.searchtext {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}

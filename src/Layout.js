@@ -11,6 +11,7 @@ import CheckoutModal from './CheckoutModal';
 import OrdersModal from './OrderModal';
 import ProductReviewModal from './ProductReviewModal';
 import ServiceReviewModal from './ServiceReviewModal';
+import SuggestionModal from './SuggestionModal';
 import TrendzModal from './TrendzModal';
 
 function Layout() {
@@ -27,6 +28,7 @@ function Layout() {
     const [showReviewModal, setShowReviewModal] = useState(false);
     const [showTrendzModal, setshowTrendzModal] = useState(false);
     const [showServiceModal, setShowServiceModal] = useState(false);
+    const [showPortalSuggestionModal, setShowPortalSuggestionModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     const navigate = useNavigate();
@@ -174,6 +176,14 @@ function Layout() {
         setShowServiceModal(false);
     }
 
+    const handlePortalSuggestionsClick = () => {
+        setShowPortalSuggestionModal(true);
+    }
+
+    const closePortalSuggestionModal = () => {
+        setShowPortalSuggestionModal(false);
+    }
+
     const closeOrdersModal = () => {
         setShowOrdersModal(false);
     };
@@ -296,6 +306,9 @@ function Layout() {
                     <br />
                 </div>
                 <div className="search-container">
+                    <button className="suggestion" onClick={handlePortalSuggestionsClick} >
+                        Portal Suggestions
+                    </button>
                     <button className="service" onClick={ handleServiceClick }>
                         Customer Service
                     </button>
@@ -464,6 +477,7 @@ function Layout() {
             <OrdersModal show={showOrdersModal} onClose={closeOrdersModal} />
             <ProductReviewModal show={showReviewModal} onClose={closeReviewModal} />
             <ServiceReviewModal show={showServiceModal} onClose={closeServiceModal} />
+            <SuggestionModal show={showPortalSuggestionModal} onClose={closePortalSuggestionModal} />
             <TrendzModal show={showTrendzModal} onClose={closeTrendzModal }/>
         </div>
     );
