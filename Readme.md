@@ -10,36 +10,36 @@
 
 5) Install jdk-17 version if not installed and save it in "C:\Program Files\Java\" folder
 
-6) Performing below java commands in the terminal :
-	a) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar -d . LoginServlet.java MySQLDataStoreUtilities.java Store.java
-	b) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar -d . StoreServlet.java MySQLDataStoreUtilities.java Store.java
-	c) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar -d . CategoryServlet.java MySQLDataStoreUtilities.java Store.java
-	d) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . ProductServlet.java MySQLDataStoreUtilities.java Store.java
-	e) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . BuyProductServlet.java MySQLDataStoreUtilities.java Store.java
-	f) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . CheckoutServlet.java MySQLDataStoreUtilities.java Store.java
-	g) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . OrderServlet.java MySQLDataStoreUtilities.java Store.java
-	h) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . CancelOrderServlet.java MySQLDataStoreUtilities.java Store.java
-	i) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mongodb-driver-3.12.10.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar;C:\apache-tomcat-9.0.93\lib\mongodb-driver-core-3.12.10.jar;C:\apache-tomcat-9.0.93\lib\bson-3.12.10.jar -d . ProductReviewServlet.java MongoDBDataStoreUtilities.java MySQLDataStoreUtilities.java Store.java
-	j) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . CustomerServlet.java MySQLDataStoreUtilities.java Store.java
+6) Performing below java commands in the terminal : <br/>
+	a) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar -d . LoginServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	b) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar -d . StoreServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	c) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar -d . CategoryServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	d) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . ProductServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	e) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . BuyProductServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	f) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . CheckoutServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	g) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . OrderServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	h) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . CancelOrderServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	i) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mongodb-driver-3.12.10.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar;C:\apache-tomcat-9.0.93\lib\mongodb-driver-core-3.12.10.jar;C:\apache-tomcat-9.0.93\lib\bson-3.12.10.jar -d . ProductReviewServlet.java MongoDBDataStoreUtilities.java MySQLDataStoreUtilities.java Store.java <br/>
+	j) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . CustomerServlet.java MySQLDataStoreUtilities.java Store.java <br/>
 	k) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mongodb-driver-3.12.10.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar;C:\apache-tomcat-9.0.93\lib\mongodb-driver-core-3.12.10.jar;C:\apache-tomcat-9.0.93\lib\bson-3.12.10.jar -d . TrendingServle
-t.java MongoDBDataStoreUtilities.java MySQLDataStoreUtilities.java Store.java
-	l) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . ProductAccessoryServlet.java MySQLDataStoreUtilities.java Store.java
-	m)  javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . BuyProductAccessoryServlet.java MySQLDataStoreUtilities.java Store.java
-	n) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . InventoryReportServlet.java MySQLDataStoreUtilities.java Store.java
-	o) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . SalesReportServlet.java MySQLDataStoreUtilities.java Store.java
-	p) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . DailySalesReportServlet.java MySQLDataStoreUtilities.java Store.java
-	q) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar -d . AjaxUtility.java
-	r) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar;C:\apache-tomcat-9.0.93\lib\okhttp-4.9.3.jar;C:\apache-tomcat-9.0.93\lib\okio-2.10.0.jar -d . OpenTicketOrderServlet.java MySQLDataStoreUtilities.java Store.java
+t.java MongoDBDataStoreUtilities.java MySQLDataStoreUtilities.java Store.java <br/>
+	l) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . ProductAccessoryServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	m)  javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . BuyProductAccessoryServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	n) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . InventoryReportServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	o) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . SalesReportServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	p) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . DailySalesReportServlet.java MySQLDataStoreUtilities.java Store.java <br/>
+	q) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar -d . AjaxUtility.java <br/>
+	r) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\mysql-connector-java.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar;C:\apache-tomcat-9.0.93\lib\okhttp-4.9.3.jar;C:\apache-tomcat-9.0.93\lib\okio-2.10.0.jar -d . OpenTicketOrderServlet.java MySQLDataStoreUtilities.java Store.java <br/>
 	s) javac -source 17 -target 17 -cp C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\json-20210307.jar -d . SuggestionsServlet.java
 
 7) Start backend server using following commands in terminal:
-   a) set JAVA_HOME=C:\Program Files\Java\jdk-17
-   b) set PATH="C:\Program Files\Java\jdk-17\bin";%PATH%
-   c) set CLASSPATH=.;C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\jsp-api.jar;C:\apache-tomcat-9.0.93\lib\el-api.jar;C:\apache-tomcat-9.0.93\lib\commons-beanutils-1.8.3.jar;C:\apache-tomcat-9.0.93\mongo-java-driver-3.1.0.jar;C:\apache-tomcat-9.0.93\lib\gson-2.3.1.jar
-   d) set ANT_HOME=C:\apache-tomcat-9.0.93
-   e) set TOMCAT_HOME=C:\apache-tomcat-9.0.93
-   f) set CATALINA_HOME=C:\apache-tomcat-9.0.93
-   h) cd "C:\apache-tomcat-9.0.93\bin"
+   a) set JAVA_HOME=C:\Program Files\Java\jdk-17 <br/>
+   b) set PATH="C:\Program Files\Java\jdk-17\bin";%PATH% <br/>
+   c) set CLASSPATH=.;C:\apache-tomcat-9.0.93\lib\servlet-api.jar;C:\apache-tomcat-9.0.93\lib\jsp-api.jar;C:\apache-tomcat-9.0.93\lib\el-api.jar;C:\apache-tomcat-9.0.93\lib\commons-beanutils-1.8.3.jar;C:\apache-tomcat-9.0.93\mongo-java-driver-3.1.0.jar;C:\apache-tomcat-9.0.93\lib\gson-2.3.1.jar <br/>
+   d) set ANT_HOME=C:\apache-tomcat-9.0.93 <br/>
+   e) set TOMCAT_HOME=C:\apache-tomcat-9.0.93 <br/>
+   f) set CATALINA_HOME=C:\apache-tomcat-9.0.93 <br/>
+   h) cd "C:\apache-tomcat-9.0.93\bin" <br/>
    i) startup.bat
 
 8) Once backend server starts running perfectly try testing the url of it. Default would be "http://localhost:8080/". If it works we move further
@@ -48,5 +48,5 @@ t.java MongoDBDataStoreUtilities.java MySQLDataStoreUtilities.java Store.java
 
 9) In frontend folder we have config.js file -- Set baseURL if it is not using default url.
 
-10) Once everthing is saved in frontend, Perform following command:
+10) Once everthing is saved in frontend, Perform following command: <br/>
 	npm start
