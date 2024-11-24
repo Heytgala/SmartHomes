@@ -1,4 +1,4 @@
-EWA ASSIGNMENT -- SMART HOMES
+<h1 strong>SMART HOMES</h1>
 
 1) Firstly install the Apache Tomcat "apache-tomcat-9.0.93" version --> https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.93/bin/
 
