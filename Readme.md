@@ -1,5 +1,23 @@
 <h1 strong>SMART HOMES</h1>
 
+This project is a web-based enterprise application for an online SmartHome retailer, developed using Servlets, React, MySQL, MongoDB, and ElasticSearch. It follows MVC architecture and object-oriented design principles to provide a scalable and extensible solution.
+
+<b>Key Features:</b>
+
+✅ User Authentication – Secure login system with MySQL database. <br/>
+✅ Product Management – CRUD operations for products stored in MySQL. <br/>
+✅ Order Processing – Store customer transactions in MySQL, supporting home delivery & in-store pickup. <br/>
+✅ Product Reviews – Customers can submit reviews stored in MongoDB. <br/>
+✅ Trending & Analytics – Track top-rated products and sales trends. <br/>
+✅ Customer Service Module – Users can open tickets, upload images, and receive AI-based resolutions. <br/>
+✅ Semantic Search & Recommendations – Uses OpenAI embeddings & ElasticSearch for intelligent product search & review analysis.
+
+Built with React, Servlet, MySQL, MongoDB, Docker, and OpenAI APIs, this project enhances the online shopping experience with smart recommendations and automated customer support.
+🚀 Tech Stack: React, Servlet, MySQL, MongoDB, ElasticSearch, OpenAI APIs.
+
+
+<b>Steps to implement:</b>
+
 1) Firstly install the Apache Tomcat "apache-tomcat-9.0.93" version --> https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.93/bin/
 
 2) Once installed unzip the folder in the "C" drive of your computer
